@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using CurrencyExchange.Filter;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ namespace ZarvanOrder.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [CustomAuthorizationFilter]
     public class BaseController : ControllerBase
     {
     }

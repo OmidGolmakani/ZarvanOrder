@@ -9,5 +9,6 @@ namespace ZarvanOrder.Model.Entites
         public Role()
         {
         }
+        public ICollection<RolePermission> RolePermissions { get; set; }
     }
 }

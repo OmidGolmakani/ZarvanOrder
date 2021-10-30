@@ -15,9 +15,15 @@ namespace ZarvanOrder.Data.SchemaDefinitions
         {
             builder.ToTable("RolePermission")
                 .HasKey(c => c.Id);
+            builder.Property(a => a.LastModified);
+            builder.Property(a => a.LastModifiedBy).HasMaxLength(120);
+            builder.Property(a => a.CreatedDate);
+            builder.Property(a => a.CreatedBy).HasMaxLength(120);
             builder.Property(p => p.RoleId).IsRequired();
             builder.Property(p => p.Token).IsRequired().HasMaxLength(600);
             builder.Property(p => p.Url).IsRequired().HasMaxLength(300);
+            builder.HasOne(p => p.Role).WithMany(p => p.RolePermissions).
+                HasForeignKey(p => p.RoleId).OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

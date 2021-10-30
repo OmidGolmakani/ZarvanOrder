@@ -76,25 +76,23 @@ namespace ZarvanOrder.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    RoleId = table.Column<long>(type: "bigint", nullable: false),
+                    RoleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Url = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
                     Token = table.Column<string>(type: "nvarchar(600)", maxLength: 600, nullable: false),
-                    RoleId1 = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedBy = table.Column<string>(type: "nvarchar(120)", maxLength: 120, nullable: true),
                     LastModified = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    LastModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    LastModifiedBy = table.Column<string>(type: "nvarchar(120)", maxLength: 120, nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_RolePermission", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_RolePermission_AspNetRoles_RoleId1",
-                        column: x => x.RoleId1,
+                        name: "FK_RolePermission_AspNetRoles_RoleId",
+                        column: x => x.RoleId,
                         principalTable: "AspNetRoles",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -222,9 +220,9 @@ namespace ZarvanOrder.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_RolePermission_RoleId1",
+                name: "IX_RolePermission_RoleId",
                 table: "RolePermission",
-                column: "RoleId1");
+                column: "RoleId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

@@ -77,7 +77,8 @@ namespace ZarvanOrder.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(120)
+                        .HasColumnType("nvarchar(120)");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
@@ -89,12 +90,10 @@ namespace ZarvanOrder.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("LastModifiedBy")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(120)
+                        .HasColumnType("nvarchar(120)");
 
-                    b.Property<long>("RoleId")
-                        .HasColumnType("bigint");
-
-                    b.Property<Guid?>("RoleId1")
+                    b.Property<Guid>("RoleId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Token")
@@ -109,7 +108,7 @@ namespace ZarvanOrder.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("RoleId1");
+                    b.HasIndex("RoleId");
 
                     b.ToTable("RolePermission");
                 });
@@ -297,8 +296,10 @@ namespace ZarvanOrder.Migrations
             modelBuilder.Entity("ZarvanOrder.Model.Entites.RolePermission", b =>
                 {
                     b.HasOne("ZarvanOrder.Model.Entites.Role", "Role")
-                        .WithMany()
-                        .HasForeignKey("RoleId1");
+                        .WithMany("RolePermissions")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.Navigation("Role");
                 });
@@ -343,6 +344,11 @@ namespace ZarvanOrder.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("ZarvanOrder.Model.Entites.Role", b =>
+                {
+                    b.Navigation("RolePermissions");
                 });
 #pragma warning restore 612, 618
         }

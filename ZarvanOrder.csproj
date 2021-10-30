@@ -30,7 +30,6 @@
 
   <ItemGroup>
     <Folder Include="Interfaces\Controllers\" />
-    <Folder Include="Filters\" />
     <Folder Include="Model\Enums\" />
     <Folder Include="Services\Data\" />
     <Folder Include="Services\Other\" />
