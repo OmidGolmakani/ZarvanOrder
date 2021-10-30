@@ -8,7 +8,7 @@ namespace ZarvanOrder.Data.DbContext
 {
     public class AppDbContext : IdentityDbContext<User,
                                                   Role,
-                                                  long,
+                                                  Guid,
                                                   UserClaim,
                                                   UserRole,
                                                   UserLogin,
@@ -21,10 +21,11 @@ namespace ZarvanOrder.Data.DbContext
 
             
         }
-        //public DbSet<Category> Categories{ get; set; }
+        public DbSet<RolePermission> RolePermissions{ get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //modelBuilder.ApplyConfiguration(new CategoryEntitySchemaDefinition());
+            modelBuilder.ApplyConfiguration(new SchemaDefinitions.RolePermission());
+            modelBuilder.ApplyConfiguration(new SchemaDefinitions.User());
 
             base.OnModelCreating(modelBuilder);
             #region Seed

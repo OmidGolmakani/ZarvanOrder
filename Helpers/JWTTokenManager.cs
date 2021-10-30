@@ -11,8 +11,9 @@ using System.Text;
 using ZarvanOrder.Data.DbContext;
 using ZarvanOrder.Extensions.Other;
 using ZarvanOrder.Model.Dtos.Responses.Authentication;
+using ZarvanOrder.Model.Dtos.Responses.RolePermissions;
 
-namespace Kalabean.Infrastructure.Helpers
+namespace ZarvanOrder.Helpers
 {
     public class JWTTokenManager
     {
@@ -27,7 +28,7 @@ namespace Kalabean.Infrastructure.Helpers
             }
         }
         public static HttpContext HttpContext { get; set; }
-        public static string GeneratePermissionToken(RolePermission Permission)
+        public static string GeneratePermissionToken(RolePermissionDto Permission)
         {
 
             JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
@@ -180,7 +181,7 @@ namespace Kalabean.Infrastructure.Helpers
                 {
                     return null;
                 }
-                long Id = identity.FindFirst(ClaimTypes.NameIdentifier).Value.ToLong();
+                Guid Id = identity.FindFirst(ClaimTypes.NameIdentifier).Value.ToGuid();
                 string UserName = identity.FindFirst(ClaimTypes.Name).Value;
                 string Phone = identity.FindFirst(ClaimTypes.MobilePhone).Value;
                 string Email = identity.FindFirst(ClaimTypes.Email).Value;

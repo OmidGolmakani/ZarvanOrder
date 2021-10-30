@@ -1,14 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 
-namespace Kalabean.Infrastructure
+namespace ZarvanOrder.Data.DbContext
 {
     public class DbFactory : IDisposable
     {
         private bool _disposed;
         private Func<AppDbContext> _instanceFunc;
-        private DbContext _dbContext;
-        public DbContext DbContext => _dbContext ?? (_dbContext = _instanceFunc.Invoke());
+        private Microsoft.EntityFrameworkCore.DbContext _dbContext;
+        public Microsoft.EntityFrameworkCore.DbContext DbContext => _dbContext ?? (_dbContext = _instanceFunc.Invoke());
         public DbFactory(Func<AppDbContext> dbContextFactory)
         {
             _instanceFunc = dbContextFactory;

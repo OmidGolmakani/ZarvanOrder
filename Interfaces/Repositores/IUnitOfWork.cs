@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace Kalabean.Domain.Base
+namespace ZarvanOrder.Interfaces.Repositores
 {
     public interface IUnitOfWork
     {

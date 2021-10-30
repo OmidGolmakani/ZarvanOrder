@@ -1,10 +1,10 @@
-﻿using Kalabean.Domain.Base;
-using System;
+﻿using System;
 using System.Threading.Tasks;
+using ZarvanOrder.Interfaces.Repositores;
 
-namespace Kalabean.Infrastructure
+namespace ZarvanOrder.Data.DbContext
 {
-     public class UnitOfWork:IUnitOfWork
+    public class UnitOfWork : IUnitOfWork
     {
         private DbFactory _dbFactory;
         public UnitOfWork(DbFactory dbFactory)

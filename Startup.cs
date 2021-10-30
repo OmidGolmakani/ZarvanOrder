@@ -14,6 +14,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ZarvanOrder.Extensions.Services;
 
 namespace ZarvanOrder
 {
@@ -37,6 +38,8 @@ namespace ZarvanOrder
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ZarvanOrder", Version = "v1" });
             });
+            services.MyIdentity();
+            services.AddServises(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

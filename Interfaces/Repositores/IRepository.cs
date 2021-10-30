@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace Kalabean.Domain.Repositories
+namespace ZarvanOrder.Interfaces.Repositores
 {
     public interface IRepository<T> where T : class
     {

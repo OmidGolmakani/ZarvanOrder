@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace ZarvanOrder.Model.Entites
 {
-    public class User : IdentityUser<long>
+    public class User : IdentityUser<Guid>
     {
         public User()
         {
@@ -25,11 +25,7 @@ namespace ZarvanOrder.Model.Entites
         public override string NormalizedEmail { get => base.NormalizedEmail; set => base.NormalizedEmail = value; }
         public override string SecurityStamp { get => base.SecurityStamp; set => base.SecurityStamp = value; }
         public override string ConcurrencyStamp { get => base.ConcurrencyStamp; set => base.ConcurrencyStamp = value; }
-        public byte? UserStatus { get; set; }
         public string NationalCode { get; set; }
-        public string IdCardNo { get; set; }
-        public byte? Subscriptiontype { get; set; }
-        public string Address { get; set; }
         public bool? HasImage { get; set; }
     }
 }

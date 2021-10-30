@@ -70,6 +70,24 @@ namespace ZarvanOrder.Extensions.Other
                 throw new Exception("ToLong", ex);
             }
         }
+        internal static Guid ToGuid(this string x)
+        {
+            try
+            {
+                if (x.Length == 0)
+                {
+                    return new Guid();
+                }
+                Guid Ret = new Guid();
+                Guid.TryParse(x, out Ret);
+                return Ret;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("ToLong", ex);
+            }
+        }
+
         /// <summary>
         /// رشته میگیرد و Long برمیگرداند
         /// </summary>
