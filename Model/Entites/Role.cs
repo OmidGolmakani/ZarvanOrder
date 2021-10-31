@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace ZarvanOrder.Model.Entites
 {
-    public class Role : IdentityRole<Guid>
+    public class Role : IdentityRole<long>
     {
         public Role()
         {

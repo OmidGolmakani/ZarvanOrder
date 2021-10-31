@@ -181,7 +181,7 @@ namespace ZarvanOrder.Helpers
                 {
                     return null;
                 }
-                Guid Id = identity.FindFirst(ClaimTypes.NameIdentifier).Value.ToGuid();
+                long Id = identity.FindFirst(ClaimTypes.NameIdentifier).Value.ToLong();
                 string UserName = identity.FindFirst(ClaimTypes.Name).Value;
                 string Phone = identity.FindFirst(ClaimTypes.MobilePhone).Value;
                 string Email = identity.FindFirst(ClaimTypes.Email).Value;

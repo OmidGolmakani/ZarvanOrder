@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ZarvanOrder.Model.Entites
 {
-    public class UserRole : IdentityUserRole<Guid>
+    public class UserRole : IdentityUserRole<long>
     {
     }
 }

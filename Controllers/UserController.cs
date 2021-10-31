@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ZarvanOrder.Controllers
 {
-    public class AccountController : ControllerBase
+    public class UserController : ControllerBase
     {
     }
 }

@@ -3,7 +3,7 @@ using System;
 
 namespace ZarvanOrder.Model.Entites
 {
-    public class UserToken : IdentityUserToken<Guid>
+    public class UserToken : IdentityUserToken<long>
     {
     }
 }

@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace ZarvanOrder.Model.Entites
 {
-    public class RolePermission : AuditDeleteEntity<Guid>
+    public class RolePermission : AuditDeleteEntity<long>
     {
-        public Guid RoleId { get; set; }
+        public long RoleId { get; set; }
         public string Url { get; set; }
         public string Token { get; set; }
         public Role Role { get; set; }
