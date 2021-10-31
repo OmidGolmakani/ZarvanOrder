@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ZarvanOrder.Model.Dtos.Requests.Users
 {
-    public class IsUniqueUser
+    public class UniqueUser
     {
         public string UserName { get; set; }
     }

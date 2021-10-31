@@ -10,7 +10,7 @@ using System.Security.Claims;
 using System.Text;
 using ZarvanOrder.Data.DbContext;
 using ZarvanOrder.Extensions.Other;
-using ZarvanOrder.Model.Dtos.Responses.Authentication;
+using ZarvanOrder.Model.Dtos.Responses.Authentications;
 using ZarvanOrder.Model.Dtos.Responses.RolePermissions;
 
 namespace ZarvanOrder.Helpers

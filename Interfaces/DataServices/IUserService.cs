@@ -14,7 +14,9 @@ namespace ZarvanOrder.Interfaces.DataServices
         Task<long> Count(Model.Dtos.Responses.Users.User request);
         Task<Model.Dtos.Responses.Users.User> GetUserAsync(Model.Dtos.Requests.Users.GetUser request);
         Task<Model.Dtos.Responses.Users.User> AddUserAsync(Model.Dtos.Requests.Users.AddUser request);
-        Task<bool> IsUniqueUserAsync(Model.Dtos.Requests.Users.IsUniqueUser request);
+        Task<bool> IsUniqueUserAsync(Model.Dtos.Requests.Users.UniqueUser request);
+        Task<bool> IsUniquePhoneNumberAsync(Model.Dtos.Requests.Users.UniquePhoneNumber request);
+        Task<bool> IsUniqueEmailAsync(Model.Dtos.Requests.Users.UniqueEmail request);
         Task<Model.Dtos.Responses.Users.User> EditUserAsync(Model.Dtos.Requests.Users.EditUser request);
         Task<Model.Dtos.Responses.Users.Signin> SignIn(Model.Dtos.Requests.Users.Login request);
         Task<List<IdentityResult>> AddUserToRole(Model.Dtos.Requests.Users.AddUserToRole request);
