@@ -27,5 +27,8 @@ namespace ZarvanOrder.Model.Entites
         public override string ConcurrencyStamp { get => base.ConcurrencyStamp; set => base.ConcurrencyStamp = value; }
         public string NationalCode { get; set; }
         public bool? HasImage { get; set; }
+        public string Tel { get; set; }
+        public string Address { get; set; }
+        public string ReasonDeactivation { get; set; }
     }
 }

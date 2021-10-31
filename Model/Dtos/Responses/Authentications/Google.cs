@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ZarvanOrder.Model.Dtos.Responses.Authentication
+namespace ZarvanOrder.Model.Dtos.Responses.Authentications
 {
     public class Google
     {

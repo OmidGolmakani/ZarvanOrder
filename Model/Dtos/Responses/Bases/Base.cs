@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ZarvanOrder.Model.Dtos.Responses.Roles
+namespace ZarvanOrder.Model.Dtos.Responses.Bases
 {
-    public class RoleDto
+    public class Base
     {
         
     }

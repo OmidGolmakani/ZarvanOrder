@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace ZarvanOrder.Model.Dtos.Responses.RolePermissions
 {
-    public class RolePermissionDto
+    public class RolePermission : Bases.Base
     {
         public string Id { get; set; }
         public string RoleId { get; set; }
         public string Url { get; set; }
         public string Token { get; set; }
-        public Roles.RoleDto Role { get; set; }
+        public Roles.Role Role { get; set; }
     }
 }

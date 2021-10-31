@@ -28,7 +28,7 @@ namespace ZarvanOrder.Helpers
             }
         }
         public static HttpContext HttpContext { get; set; }
-        public static string GeneratePermissionToken(RolePermissionDto Permission)
+        public static string GeneratePermissionToken(RolePermission Permission)
         {
 
             JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();

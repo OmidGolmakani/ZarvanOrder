@@ -32,6 +32,9 @@ namespace ZarvanOrder.Data.SchemaDefinitions
             builder.Property(p => p.LockoutEnd);
             builder.Property(p => p.LockoutEnabled);
             builder.Property(p => p.NationalCode).HasMaxLength(10);
+            builder.Property(p => p.Tel).HasMaxLength(11);
+            builder.Property(p => p.Address).HasMaxLength(200);
+            builder.Property(p => p.ReasonDeactivation).HasMaxLength(11);
         }
     }
 }

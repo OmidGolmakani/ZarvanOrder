@@ -1,13 +1,27 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ZarvanOrder.Model.Entites;
 
 namespace ZarvanOrder.Interfaces.DataServices
 {
-    public interface IUserService
+    internal interface IUserService 
     {
-        
+        Task<Model.Dtos.Responses.Pageing.List<Model.Dtos.Responses.Users.User>> GetUsersAsync(Model.Dtos.Responses.Users.User request);
+        Task<long> Count(Model.Dtos.Responses.Users.User request);
+        Task<Model.Dtos.Responses.Users.User> GetUserAsync(Model.Dtos.Requests.Users.GetUser request);
+        Task<Model.Dtos.Responses.Users.User> AddUserAsync(Model.Dtos.Requests.Users.AddUser request);
+        Task<bool> IsUniqueUserAsync(Model.Dtos.Requests.Users.IsUniqueUser request);
+        Task<Model.Dtos.Responses.Users.User> EditUserAsync(Model.Dtos.Requests.Users.EditUser request);
+        Task<Model.Dtos.Responses.Users.Signin> SignIn(Model.Dtos.Requests.Users.Login request);
+        Task<List<IdentityResult>> AddUserToRole(Model.Dtos.Requests.Users.AddUserToRole request);
+        Task<List<string>> GetUserRoles(Model.Dtos.Requests.Users.GetUser request);
+        Task BatchDeleteUsersAsync(long[] Ids);
+        Task SignOut();
+        Task<string> PhoneNumberConfirmation(string PhoneNumber);
+        Task<IdentityResult> VerifyPhoneNumber(string PhoneNumber, string Token);
     }
 }
