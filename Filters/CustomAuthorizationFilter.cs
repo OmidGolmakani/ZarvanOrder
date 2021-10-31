@@ -7,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CurrencyExchange.Filter
+namespace ZarvanOrder.Filter
 {
     public class CustomAuthorizationFilter : ActionFilterAttribute, IAllowAnonymous 
     {

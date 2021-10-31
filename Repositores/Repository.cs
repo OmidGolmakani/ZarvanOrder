@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
@@ -10,10 +11,17 @@ namespace ZarvanOrder.Repositores
     public class Repository<T> : IRepository<T> where T : class
     {
         private readonly DbFactory _dbFactory;
+        private readonly Mapper _mapper;
         private DbSet<T> _dbSet;
         protected DbSet<T> DbSet
         {
             get => _dbSet ?? (_dbSet = _dbFactory.DbContext.Set<T>());
+        }
+        public Repository(DbFactory dbFactory,
+                          AutoMapper.Mapper mapper)
+        {
+            _dbFactory = dbFactory;
+            this._mapper = mapper;
         }
         public Repository(DbFactory dbFactory)
         {
