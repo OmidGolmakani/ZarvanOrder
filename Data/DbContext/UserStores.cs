@@ -13,7 +13,7 @@ namespace ZarvanOrder.Data.DbContext
     public class UserStores : UserStore<User,
                                         Role,
                                         AppDbContext, 
-                                        Guid, 
+                                        long, 
                                         UserClaim,
                                         UserRole, 
                                         UserLogin, 

@@ -8,7 +8,7 @@ namespace ZarvanOrder.Data.DbContext
 {
     public class AppDbContext : IdentityDbContext<User,
                                                   Role,
-                                                  Guid,
+                                                  long,
                                                   UserClaim,
                                                   UserRole,
                                                   UserLogin,
