@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ZarvanOrder.Model.Dtos.Responses.Users
 {
-    public class User : Bases.Base
+    public class UserResponse : Bases.BaseResponse
     {
         public long Id { get; set; }
         public string Name { get; set; }

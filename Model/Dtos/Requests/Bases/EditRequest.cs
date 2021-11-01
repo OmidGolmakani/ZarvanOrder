@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ZarvanOrder.Model.Dtos.Requests.Bases
 {
-    public class Edit:Base
+    public class EditRequest:BaseRequest
     {
         
     }

@@ -11,7 +11,7 @@ namespace ZarvanOrder.Configs
     {
         internal AutoMapper()
         {
-            CreateMap<Model.Dtos.Responses.Users.User, Model.Entites.User>().ReverseMap();
+            CreateMap<Model.Dtos.Responses.Users.UserResponse, Model.Entites.User>().ReverseMap();
         }
     }
 }

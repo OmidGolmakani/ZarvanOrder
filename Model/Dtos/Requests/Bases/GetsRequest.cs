@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ZarvanOrder.Model.Dtos.Requests.Roles
+namespace ZarvanOrder.Model.Dtos.Requests.Bases
 {
-    public class GetRole
+    public class GetsRequest : BaseRequest
     {
-        public string Id { get; set; }
+        
     }
 }

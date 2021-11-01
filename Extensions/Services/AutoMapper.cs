@@ -10,7 +10,7 @@ namespace ZarvanOrder.Extensions.Services
 {
     internal static class AutoMapper
     {
-        internal static IServiceCollection AddAutoMapper(this IServiceCollection services)
+        internal static IServiceCollection AddAutoMapper(this IServiceCollection Services)
         {
             var mapperConfig = new MapperConfiguration(mc =>
             {
@@ -18,8 +18,8 @@ namespace ZarvanOrder.Extensions.Services
             });
 
             IMapper mapper = mapperConfig.CreateMapper();
-            services.AddSingleton(mapper);
-            return services;
+            Services.AddSingleton(mapper);
+            return Services;
         }
     }
 }

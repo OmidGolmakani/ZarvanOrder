@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ZarvanOrder.Model.Dtos.Requests.Users
+namespace ZarvanOrder.Model.Dtos.Requests.Bases
 {
-    public class UniqueUser
+    public class BaseRequest
     {
-        public string UserName { get; set; }
+        
     }
 }

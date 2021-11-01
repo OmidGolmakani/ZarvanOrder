@@ -18,17 +18,17 @@ namespace ZarvanOrder.Helpers
     public class JWTTokenManager
     {
         public static IConfiguration configuration = null;
-        private static Authentication AuthInfo
+        private static AuthenticationResponse AuthInfo
         {
             get
             {
-                Authentication authorizationOption = new Authentication();
+                AuthenticationResponse authorizationOption = new AuthenticationResponse();
                 configuration.GetSection("Authentication").Bind(authorizationOption);
                 return authorizationOption;
             }
         }
         public static HttpContext HttpContext { get; set; }
-        public static string GeneratePermissionToken(RolePermission Permission)
+        public static string GeneratePermissionToken(RolePermissionResponse Permission)
         {
 
             JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();

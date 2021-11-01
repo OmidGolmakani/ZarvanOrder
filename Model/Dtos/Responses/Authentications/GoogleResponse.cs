@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ZarvanOrder.Model.Dtos.Responses.Authentications
 {
-    public class Google
+    public class GoogleResponse
     {
             public string ClientId { get; set; }
             public string ClientSecret { get; set; }

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ZarvanOrder.Model.Dtos.Requests.Bases
+namespace ZarvanOrder.Services.Data
 {
-    public class Get : Base
+    public class UserService:Interfaces.DataServices.IUserService
     {
         
     }

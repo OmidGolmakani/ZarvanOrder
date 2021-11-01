@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace ZarvanOrder.Model.Dtos.Requests.Users
 {
-    public class GetUser:Bases.Get
+    public class AddUserToRoleRequest
     {
         public long Id { get; set; }
+        public List<string> Roles { get; set; }
     }
 }

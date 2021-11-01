@@ -8,12 +8,12 @@ using ZarvanOrder.Interfaces.DataServices;
 
 namespace ZarvanOrder.Model.Validation
 {
-    internal class User : AbstractValidator<Entites.User>
+    internal class UserValidation : AbstractValidator<Entites.User>
     {
         private readonly IUserService _userService;
         private readonly Mapper _mapper;
 
-        internal User(IUserService userService,
+        internal UserValidation(IUserService userService,
                       Mapper mapper)
         {
             this._userService = userService;
@@ -37,8 +37,8 @@ namespace ZarvanOrder.Model.Validation
         }
         internal async Task<bool> IsUniqueUserNameAsync(Entites.User request)
         {
-            Dtos.Requests.Users.UniqueUser _request = new Dtos.Requests.Users.UniqueUser();
-            _mapper.Map<Entites.User, Dtos.Requests.Users.UniqueUser>(request, _request);
+            Dtos.Requests.Users.UniqueUserValidationRequst _request = new Dtos.Requests.Users.UniqueUserValidationRequst();
+            _mapper.Map<Entites.User, Dtos.Requests.Users.UniqueUserValidationRequst>(request, _request);
             return await _userService.IsUniqueUserAsync(_request);
         }
         internal async Task<bool> IsUniquePhoneNumberAsync(Entites.User request)
@@ -49,8 +49,8 @@ namespace ZarvanOrder.Model.Validation
         }
         internal async Task<bool> IsUniqueEmailAsync(Entites.User request)
         {
-            Dtos.Requests.Users.UniqueEmail _request = new Dtos.Requests.Users.UniqueEmail();
-            _mapper.Map<Entites.User, Dtos.Requests.Users.UniqueEmail>(request, _request);
+            Dtos.Requests.Users.UniqueEmailValodationRequest _request = new Dtos.Requests.Users.UniqueEmailValodationRequest();
+            _mapper.Map<Entites.User, Dtos.Requests.Users.UniqueEmailValodationRequest>(request, _request);
             return await _userService.IsUniqueEmailAsync(_request);
         }
         internal bool IsUniqueNationalCodeAsync(Entites.User request)

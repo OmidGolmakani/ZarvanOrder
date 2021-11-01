@@ -32,7 +32,6 @@
   <ItemGroup>
     <Folder Include="Interfaces\Controllers\" />
     <Folder Include="Model\Enums\" />
-    <Folder Include="Services\Data\" />
     <Folder Include="Services\Other\" />
   </ItemGroup>
 

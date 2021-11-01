@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ZarvanOrder.Model.Dtos.Responses.Pageing
 {
-    public class List<T>
+    public class ListResponse<T>
     {
         public IEnumerable<T> Items { get; set; }
         public int Total { get; set; }

@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ZarvanOrder.Model.Dtos.Responses.Bases
+namespace ZarvanOrder.Model.Dtos.Requests.Users
 {
-    public class Base
+    public class UniqueEmailValodationRequest
     {
-        
+        public string Email { get; set; }
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ZarvanOrder.Model.Dtos.Responses.Users
 {
-    public class Signin
+    public class SigninResponse
     {
         public long UserId { get; set; }
         public SignInResult SignIn { get; set; }

@@ -6,14 +6,15 @@ using System.Threading.Tasks;
 
 namespace ZarvanOrder.Model.Dtos.Requests.Pages
 {
-    public class Page
+    public class PageRequest : Bases.GetsRequest
     {
         int _pageSize = 0;
-        public int PageSize { 
+        public int PageSize
+        {
             set
             {
                 this._pageSize = value;
-            }   
+            }
             get
             {
                 return this._pageSize > 0 ?
