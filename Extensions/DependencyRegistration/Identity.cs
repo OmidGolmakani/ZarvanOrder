@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ZarvanOrder.Data.DbContext;
 
-namespace ZarvanOrder.Extensions.Services
+namespace ZarvanOrder.Extensions.DependencyRegistration
 {
     internal static class Identity
     {

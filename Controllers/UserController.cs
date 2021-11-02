@@ -17,59 +17,63 @@ namespace ZarvanOrder.Controllers
     {
         private readonly IUserService _userService;
         private readonly IService<AddUserRequest, EditUserRequest, DeleteUserRequest, UserResponse> _service;
-        private readonly IGetService<GetUserRequest, GetUsersRequest, GetUsersRequest> getService;
+        private readonly IGetService<GetUserRequest, GetUsersRequest, GetUsersRequest> _getService;
 
         public UserController(IUserService userService,
-                              IService<AddUserRequest,EditUserRequest, DeleteUserRequest, UserResponse> service,
-                              IGetService<GetUserRequest,GetUsersRequest,GetUsersRequest> _getService
+                              IService<AddUserRequest, EditUserRequest, DeleteUserRequest, UserResponse> service,
+                              IGetService<GetUserRequest, GetUsersRequest, GetUsersRequest> _getService
                               )
         {
             this._userService = userService;
             this._service = service;
-            this.getService = _getService;
+            this._getService = _getService;
         }
         [HttpPost("BachDelete")]
-        public async Task<IActionResult> BachDelete(List<DeleteUserRequest> request)
+        public async Task<IActionResult> BachDelete([FromForm] List<DeleteUserRequest> request)
         {
             await _service.BatchDelete(request);
             return Ok();
 
         }
         [HttpPost("Delete")]
-        public Task<IActionResult> Delete(DeleteUserRequest request)
+        public async Task<IActionResult> Delete([FromForm] DeleteUserRequest request)
         {
-            throw new NotImplementedException();
+            await _service.Delete(request);
+            return Ok();
         }
-        [HttpGet("Get/{Id}")]
-        public Task<IActionResult> Get(GetUserRequest request)
+        [HttpGet("Get")]
+        public async Task<IActionResult> Get([FromQuery] GetUserRequest request)
         {
-            throw new NotImplementedException();
+            return Ok(await _getService.GetAsync(request));
         }
-
+        [HttpPost("GetEmailVerification")]
         public Task GetEmailVerification(GetUserRequest request)
         {
             throw new NotImplementedException();
         }
-
+        [HttpPost("GetPhoneNumberVerification")]
         public Task GetPhoneNumberVerification(GetUserRequest request)
         {
             throw new NotImplementedException();
         }
 
         [HttpGet("Gets")]
-        public Task<IActionResult> Gets(GetUsersRequest request)
+        public async Task<IActionResult> Gets(GetUsersRequest request)
         {
-            throw new NotImplementedException();
+            return Ok(await _getService.GetsAsync(request));
         }
         [HttpPost("Post")]
-        public Task<IActionResult> Post(AddUserRequest request)
+        public async Task<IActionResult> Post([FromForm] AddUserRequest request)
         {
-            throw new NotImplementedException();
+            var result = await _service.Add(request);
+            return CreatedAtAction(nameof(Get), new { id = result.Id }, result);
+
         }
         [HttpPut("Put")]
-        public Task<IActionResult> Put(EditUserRequest request)
+        public async Task<IActionResult> Put([FromForm] EditUserRequest request)
         {
-            throw new NotImplementedException();
+            var result = await _service.Update(request);
+            return CreatedAtAction(nameof(Get), new { id = result.Id }, result);
         }
     }
 }

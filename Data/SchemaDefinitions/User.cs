@@ -14,7 +14,14 @@ namespace ZarvanOrder.Data.SchemaDefinitions
         public void Configure(EntityTypeBuilder<Model.Entites.User> builder)
         {
             builder.ToTable("AspNetUsers")
-                .HasKey(c => c.Id);
+                .HasKey(p => p.Id);
+            builder.Property(p => p.LastModified);
+            builder.Property(p => p.LastModifiedBy).HasMaxLength(120);
+            builder.Property(p => p.CreatedDate);
+            builder.Property(p => p.CreatedBy).HasMaxLength(120);
+            builder.Property(p => p.DeletedDate);
+            builder.Property(p => p.DeletedBy).HasMaxLength(120);
+
             builder.Property(p => p.Name).HasMaxLength(60);
             builder.Property(p => p.Family).HasMaxLength(60);
             builder.Property(p => p.UserName).HasMaxLength(100);

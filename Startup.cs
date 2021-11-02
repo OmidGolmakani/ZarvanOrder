@@ -14,7 +14,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ZarvanOrder.Extensions.Services;
+using ZarvanOrder.Extensions.DependencyRegistration;
 
 namespace ZarvanOrder
 {
@@ -34,12 +34,10 @@ namespace ZarvanOrder
                 .AddMicrosoftIdentityWebApi(Configuration.GetSection("AzureAd"));
 
             services.AddControllers();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "ZarvanOrder", Version = "v1" });
-            });
+            services.AddSwagger();
             services.MyIdentity();
             services.AddServises(Configuration);
+            services.AddRepositores();
             services.AddAutoMapper();
             services.AddMvc();
         }

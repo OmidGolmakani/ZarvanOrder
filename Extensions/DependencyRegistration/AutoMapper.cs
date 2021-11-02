@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ZarvanOrder.Extensions.Services
+namespace ZarvanOrder.Extensions.DependencyRegistration
 {
     internal static class AutoMapper
     {
