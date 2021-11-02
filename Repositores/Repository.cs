@@ -52,9 +52,14 @@ namespace ZarvanOrder.Repositores
             DbSet.UpdateRange(entities);
         }
 
-        public long Count(Expression<Func<T, bool>> expression)
+        public virtual long Count(Expression<Func<T, bool>> expression)
         {
             return DbSet.Where(expression).AsNoTracking().Count();
+        }
+
+        public virtual void DeleteBatch(System.Collections.Generic.IEnumerable<T> entities)
+        {
+            DbSet.RemoveRange(entities);
         }
     }
 }

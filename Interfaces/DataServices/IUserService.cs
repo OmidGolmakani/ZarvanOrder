@@ -15,7 +15,7 @@ namespace ZarvanOrder.Interfaces.DataServices
         Task<bool> IsUniqueEmailAsync(Model.Dtos.Requests.Users.UniqueEmailValodationRequest request);
         Task<Model.Dtos.Responses.Users.SigninResponse> SignIn(Model.Dtos.Requests.Users.LoginRequst request);
         Task<List<IdentityResult>> AddUserToRole(Model.Dtos.Requests.Users.AddUserToRoleRequest request);
-        Task<List<string>> GetUserRoles(Model.Dtos.Requests.Users.GetUserRequest request);
+        Task<IList<string>> GetUserRolesAsync(Model.Dtos.Requests.Users.GetUserRequest request);
         Task SignOut();
         Task<string> PhoneNumberConfirmation(string PhoneNumber);
         Task<IdentityResult> VerifyPhoneNumber(string PhoneNumber, string Token);

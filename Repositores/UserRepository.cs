@@ -11,6 +11,7 @@ using ZarvanOrder.Data.DbContext;
 using ZarvanOrder.Extensions.Other;
 using ZarvanOrder.Interfaces.Repositores;
 using ZarvanOrder.Model.Dtos.Requests.Users;
+using ZarvanOrder.Model.Entites;
 
 namespace ZarvanOrder.Repositores
 {
@@ -18,16 +19,22 @@ namespace ZarvanOrder.Repositores
     {
         private readonly DbFactory _dbFactory;
         private readonly UserManager<Model.Entites.User> _userManager;
+        private readonly SignInManager<User> _signInManager;
         private readonly Mapper _mapper;
 
         public UserRepository(DbFactory dbFactory,
-                    Microsoft.AspNetCore.Identity.UserManager<Model.Entites.User> userManager) : base(dbFactory)
+                              UserManager<Model.Entites.User> userManager,
+                              SignInManager<Model.Entites.User> signInManager,
+                              Mapper mapper)
+            : base(dbFactory)
         {
             _dbFactory = dbFactory;
             this._userManager = userManager;
+            this._signInManager = signInManager;
+            this._mapper = mapper;
         }
 
-        public Model.Entites.User Add(Model.Entites.User entity)
+        public override Model.Entites.User Add(Model.Entites.User entity)
         {
             var Result = _userManager.CreateAsync(entity).Result;
             if (Result.Succeeded)
@@ -41,14 +48,14 @@ namespace ZarvanOrder.Repositores
             });
         }
 
-        public async Task<IQueryable<Model.Entites.User>> Get(GetUsersRequest request, bool includeDeleted = false)
+        public Task<IQueryable<Model.Entites.User>> Get(GetUsersRequest request, bool includeDeleted = false)
         {
-            return this.List(u =>
-                                   string.IsNullOrEmpty(request.Name) || string.IsNullOrEmpty(u.Name) || u.Name.Contains(request.Name) &&
-                                   string.IsNullOrEmpty(request.PhoneNUmber) || string.IsNullOrEmpty(u.PhoneNumber) || u.Name.Contains(request.PhoneNUmber) &&
-                                   string.IsNullOrEmpty(request.Email) || string.IsNullOrEmpty(u.Email) || u.Name.Contains(request.Email) &&
-                                   string.IsNullOrEmpty(request.UserName) || u.UserName == request.UserName)
-                .Skip(request.PageSize * request.PageIndex).Take(request.PageSize);
+            return Task.Run(() => this.List(u =>
+                                     string.IsNullOrEmpty(request.Name) || string.IsNullOrEmpty(u.Name) || u.Name.Contains(request.Name) &&
+                                     string.IsNullOrEmpty(request.PhoneNUmber) || string.IsNullOrEmpty(u.PhoneNumber) || u.Name.Contains(request.PhoneNUmber) &&
+                                     string.IsNullOrEmpty(request.Email) || string.IsNullOrEmpty(u.Email) || u.Name.Contains(request.Email) &&
+                                     string.IsNullOrEmpty(request.UserName) || u.UserName == request.UserName)
+                .Skip(request.PageSize * request.PageIndex).Take(request.PageSize));
         }
 
         public Task<Model.Entites.User> GetById(GetUserRequest request, bool includeDeleted = false)
@@ -58,7 +65,32 @@ namespace ZarvanOrder.Repositores
                  .AsNoTracking()
                  .FirstOrDefaultAsync();
         }
-        public Model.Entites.User Update(Model.Entites.User entity)
+
+        public async Task<IList<string>> GetRolesAsync(GetUserRequest request)
+        {
+            var user = _mapper.Map<Model.Entites.User>(GetById(request));
+            if (user == null) throw new NullReferenceException(Model.Messages.General.UserNotFound);
+            return await _userManager.GetRolesAsync(user);
+        }
+
+        public async Task<SignInResult> SigninAsync(LoginRequst requst)
+        {
+            var user = await _userManager.FindByNameAsync(requst.UserName);
+            if (user == null) throw new NullReferenceException(Model.Messages.General.UserNotFound);
+            return await _signInManager.PasswordSignInAsync(requst.UserName, requst.Password, requst.isPersistent, false);
+        }
+
+        public async Task SignoutAsync()
+        {
+            await _signInManager.SignOutAsync();
+        }
+        public async Task<IdentityResult> AddUserToRoleAsync(GetUserRequest request,string Role)
+        {
+            var user = await _userManager.FindByIdAsync(request.Id.ToString());
+            if (user == null) throw new NullReferenceException(Model.Messages.General.UserNotFound);
+            return await _userManager.AddToRoleAsync(user, Role);
+        }
+        public override Model.Entites.User Update(Model.Entites.User entity)
         {
             var Result = _userManager.UpdateAsync(entity).Result;
             if (Result.Succeeded)

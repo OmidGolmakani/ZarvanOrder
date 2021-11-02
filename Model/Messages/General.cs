@@ -9,5 +9,7 @@ namespace ZarvanOrder.Model.Messages
     internal static class General
     {
         internal const string MaximumLength = "طول این رشته از حداکثر مجاز بیشتر است";
+        internal const string NullReferenceException = "خطا:با اطلاعات دریافتی داده ای یافت نشد";
+        internal const string UserNotFound = "کاربر مورد نظر یافت نشد";
     }
 }

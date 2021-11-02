@@ -15,7 +15,7 @@ using ZarvanOrder.Model.Validation;
 
 namespace ZarvanOrder.Services.Data
 {
-    public class UserService : IService<AddUserRequest, EditUserRequest, GetUserRequest, UserResponse>,
+    public class UserService : IService<AddUserRequest, EditUserRequest,DeleteUserRequest, UserResponse>,
                                IGetService<GetUserRequest, GetUsersRequest, UserResponse>,
                                IUserService
     {
@@ -36,11 +36,11 @@ namespace ZarvanOrder.Services.Data
             this.userValidation = userValidation;
         }
 
-        public async Task<UserResponse> Add(AddUserRequest request)
+        public Task<UserResponse> Add(AddUserRequest request)
         {
             var entity = _mapper.Map<Model.Entites.User>(request);
             _userRepository.Add(entity);
-            return _mapper.Map<UserResponse>(entity);
+            return Task.Run(() => _mapper.Map<UserResponse>(entity));
         }
 
         public Task<List<IdentityResult>> AddUserToRole(AddUserToRoleRequest request)
@@ -48,39 +48,48 @@ namespace ZarvanOrder.Services.Data
             throw new NotImplementedException();
         }
 
-        public Task<UserResponse> BatchDelete(IEnumerable<GetUserRequest> request)
+        public Task BatchDelete(IEnumerable<DeleteUserRequest> request)
         {
-            throw new NotImplementedException();
+            var entites = _mapper.Map<IEnumerable<Model.Entites.User>>(request);
+            _userRepository.DeleteBatch(entites);
+            return Task.Run(() => true);
         }
 
-        public Task BatchUpdate(IEnumerable<GetUserRequest> request)
+        public Task BatchUpdate(IEnumerable<EditUserRequest> request)
         {
-            throw new NotImplementedException();
+            var entites = _mapper.Map<IEnumerable<Model.Entites.User>>(request);
+            _userRepository.UpdateBatch(entites);
+            return Task.Run(() => true);
         }
 
-        public Task<int> CountAsync(GetUsersRequest request)
+        public async Task<int> CountAsync(GetUsersRequest request)
         {
-            throw new NotImplementedException();
+            var Count = await _userRepository.Get(request);
+            return Count.Count();
         }
 
-        public Task<UserResponse> Delete(GetUserRequest request)
+        public Task Delete(DeleteUserRequest request)
         {
-            throw new NotImplementedException();
+            var entity = _mapper.Map<Model.Entites.User>(request);
+            _userRepository.Delete(entity);
+            var model = new UserResponse();
+            return Task.Run(() => _mapper.Map<Model.Entites.User, UserResponse>(entity, model));
         }
 
-        public Task<ListResponse<UserResponse>> GetAsync(GetUserRequest request)
+        public async Task<UserResponse> GetAsync(GetUserRequest request)
         {
-            throw new NotImplementedException();
+            return _mapper.Map<UserResponse>(await _userRepository.GetById(request));
         }
 
-        public Task<ListResponse<UserResponse>> GetsAsync(GetUsersRequest request)
+        public async Task<ListResponse<UserResponse>> GetsAsync(GetUsersRequest request)
         {
-            throw new NotImplementedException();
+            var items = _mapper.Map<IEnumerable<UserResponse>>(await _userRepository.Get(request));
+            return new ListResponse<UserResponse>() { Items = items, Total = items.Count() };
         }
 
-        public Task<List<string>> GetUserRoles(GetUserRequest request)
+        public Task<IList<string>> GetUserRolesAsync(GetUserRequest request)
         {
-            throw new NotImplementedException();
+            return _userRepository.GetRolesAsync(request);
         }
 
         public Task<bool> IsUniqueEmailAsync(UniqueEmailValodationRequest request)
@@ -115,12 +124,16 @@ namespace ZarvanOrder.Services.Data
 
         public Task<UserResponse> Update(EditUserRequest request)
         {
-            throw new NotImplementedException();
+            var entity = _mapper.Map<Model.Entites.User>(request);
+            _userRepository.Update(entity);
+            var model = new UserResponse();
+            return Task.Run(() => _mapper.Map<Model.Entites.User, UserResponse>(entity, model));
         }
 
         public Task<IdentityResult> VerifyPhoneNumber(string PhoneNumber, string Token)
         {
             throw new NotImplementedException();
         }
+
     }
 }

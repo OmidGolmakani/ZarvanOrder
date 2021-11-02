@@ -9,8 +9,9 @@ namespace ZarvanOrder.Interfaces.Repositores
     {
         T Add(T entity);
         T Delete(T entity);
+        void DeleteBatch(IEnumerable<T> entities);
         T Update(T entity);
-        void UpdateBatch(IEnumerable<T> entity);
+        void UpdateBatch(IEnumerable<T> entities);
         IQueryable<T> List(Expression<Func<T, bool>> expression);
     }
 }

@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace ZarvanOrder.Interfaces.Controllers
 {
-    public interface IController<TAddRequest, TEditRequest, TGetRequest, TDeleteRequest>
+    public interface IController<TAddRequest, TEditRequest, TDeleteRequest>
     {
-        Task<IActionResult> Add(TAddRequest request);
-        Task<IActionResult> Update(TEditRequest request);
-        Task UpdateBatch(IEnumerable<TEditRequest> request);
+        Task<IActionResult> Post(TAddRequest request);
+        Task<IActionResult> Put(TEditRequest request);
         Task<IActionResult> Delete(TDeleteRequest request);
+        Task<IActionResult> BachDelete(List<TDeleteRequest> request);
     }
 }
