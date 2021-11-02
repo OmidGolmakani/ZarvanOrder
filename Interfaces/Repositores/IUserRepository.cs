@@ -15,6 +15,9 @@ namespace ZarvanOrder.Interfaces.Repositores
         Task<IList<string>> GetRolesAsync(Model.Dtos.Requests.Users.GetUserRequest request);
         Task SignoutAsync();
         Task<IdentityResult> AddUserToRoleAsync(Model.Dtos.Requests.Users.GetUserRequest request, string Role);
+        Task<bool> IsUniqueUserAsync(Model.Dtos.Requests.Users.UniqueUserValidationRequst requst);
+        Task<bool> IsUniqueEmailAsync(Model.Dtos.Requests.Users.UniqueEmailValodationRequest requst);
+        Task<bool> IsUniquePhoneNumberAsync(Model.Dtos.Requests.Users.UniquePhoneNumber requst);
 
     }
 }

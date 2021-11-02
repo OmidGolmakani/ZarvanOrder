@@ -13,10 +13,10 @@ namespace ZarvanOrder.Interfaces.DataServices
         Task<bool> IsUniqueUserAsync(Model.Dtos.Requests.Users.UniqueUserValidationRequst request);
         Task<bool> IsUniquePhoneNumberAsync(Model.Dtos.Requests.Users.UniquePhoneNumber request);
         Task<bool> IsUniqueEmailAsync(Model.Dtos.Requests.Users.UniqueEmailValodationRequest request);
-        Task<Model.Dtos.Responses.Users.SigninResponse> SignIn(Model.Dtos.Requests.Users.LoginRequst request);
+        Task<SignInResult> SignInAsync(Model.Dtos.Requests.Users.LoginRequst request);
         Task<List<IdentityResult>> AddUserToRole(Model.Dtos.Requests.Users.AddUserToRoleRequest request);
         Task<IList<string>> GetUserRolesAsync(Model.Dtos.Requests.Users.GetUserRequest request);
-        Task SignOut();
+        Task SignoutAsync();
         Task<string> PhoneNumberConfirmation(string PhoneNumber);
         Task<IdentityResult> VerifyPhoneNumber(string PhoneNumber, string Token);
     }

@@ -40,6 +40,7 @@ namespace ZarvanOrder.Services.Data
         {
             var entity = _mapper.Map<Model.Entites.User>(request);
             _userRepository.Add(entity);
+            _unitOfWork.CommitAsync();
             return Task.Run(() => _mapper.Map<UserResponse>(entity));
         }
 
@@ -52,6 +53,7 @@ namespace ZarvanOrder.Services.Data
         {
             var entites = _mapper.Map<IEnumerable<Model.Entites.User>>(request);
             _userRepository.DeleteBatch(entites);
+            _unitOfWork.CommitAsync();
             return Task.Run(() => true);
         }
 
@@ -59,6 +61,7 @@ namespace ZarvanOrder.Services.Data
         {
             var entites = _mapper.Map<IEnumerable<Model.Entites.User>>(request);
             _userRepository.UpdateBatch(entites);
+            _unitOfWork.CommitAsync();
             return Task.Run(() => true);
         }
 
@@ -72,6 +75,7 @@ namespace ZarvanOrder.Services.Data
         {
             var entity = _mapper.Map<Model.Entites.User>(request);
             _userRepository.Delete(entity);
+            _unitOfWork.CommitAsync();
             var model = new UserResponse();
             return Task.Run(() => _mapper.Map<Model.Entites.User, UserResponse>(entity, model));
         }
@@ -92,19 +96,19 @@ namespace ZarvanOrder.Services.Data
             return _userRepository.GetRolesAsync(request);
         }
 
-        public Task<bool> IsUniqueEmailAsync(UniqueEmailValodationRequest request)
+        public async Task<bool> IsUniqueEmailAsync(UniqueEmailValodationRequest request)
         {
-            throw new NotImplementedException();
+            return await _userRepository.IsUniqueEmailAsync(request);
         }
 
         public Task<bool> IsUniquePhoneNumberAsync(UniquePhoneNumber request)
         {
-            throw new NotImplementedException();
+            return _userRepository.IsUniquePhoneNumberAsync(request);
         }
 
-        public Task<bool> IsUniqueUserAsync(UniqueUserValidationRequst request)
+        public async Task<bool> IsUniqueUserAsync(UniqueUserValidationRequst request)
         {
-            throw new NotImplementedException();
+            return await _userRepository.IsUniqueUserAsync(request);
         }
 
         public Task<string> PhoneNumberConfirmation(string PhoneNumber)
@@ -112,14 +116,14 @@ namespace ZarvanOrder.Services.Data
             throw new NotImplementedException();
         }
 
-        public Task<SigninResponse> SignIn(LoginRequst request)
+        public async Task<SignInResult> SignInAsync(LoginRequst request)
         {
-            throw new NotImplementedException();
+            return await _userRepository.SigninAsync(request);
         }
 
-        public Task SignOut()
+        public async Task SignoutAsync()
         {
-            throw new NotImplementedException();
+            await _userRepository.SignoutAsync();
         }
 
         public Task<UserResponse> Update(EditUserRequest request)

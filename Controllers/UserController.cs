@@ -11,7 +11,7 @@ using ZarvanOrder.Model.Dtos.Responses.Users;
 
 namespace ZarvanOrder.Controllers
 {
-    public class UserController : ControllerBase, IController<AddUserRequest, EditUserRequest, DeleteUserRequest>,
+    public class UserController : BaseController, IController<AddUserRequest, EditUserRequest, DeleteUserRequest>,
                                                   IGetController<GetUserRequest, GetUsersRequest>,
                                                   IUserController
     {
@@ -45,6 +45,17 @@ namespace ZarvanOrder.Controllers
         {
             throw new NotImplementedException();
         }
+
+        public Task GetEmailVerification(GetUserRequest request)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task GetPhoneNumberVerification(GetUserRequest request)
+        {
+            throw new NotImplementedException();
+        }
+
         [HttpGet("Gets")]
         public Task<IActionResult> Gets(GetUsersRequest request)
         {

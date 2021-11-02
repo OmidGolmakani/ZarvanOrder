@@ -8,7 +8,8 @@ using ZarvanOrder.Interfaces.Repositores;
 
 namespace ZarvanOrder.Repositores
 {
-    public class Repository<T> : IRepository<T> where T : class
+    public class Repository<T> : IRepository<T> where T : class, Interfaces.Entites.IAuditEntity,
+                                                                 Interfaces.Entites.IDeleteEntity
     {
         private readonly DbFactory _dbFactory;
         private readonly Mapper _mapper;
@@ -29,12 +30,15 @@ namespace ZarvanOrder.Repositores
         }
         public virtual T Add(T entity)
         {
+            entity.CreatedDate = DateTime.Now;
             return DbSet.Add(entity).Entity;
         }
 
         public virtual T Delete(T entity)
         {
-            return DbSet.Remove(entity).Entity;
+            entity.IsDeleted = true;
+            entity.DeletedDate = DateTime.Now;
+            return DbSet.Update(entity).Entity;
         }
 
         public virtual IQueryable<T> List(Expression<Func<T, bool>> expression)
@@ -44,11 +48,16 @@ namespace ZarvanOrder.Repositores
 
         public virtual T Update(T entity)
         {
+            entity.LastModified = DateTime.Now;
             return DbSet.Update(entity).Entity;
         }
 
         public virtual void UpdateBatch(System.Collections.Generic.IEnumerable<T> entities)
         {
+            foreach (var entity in entities)
+            {
+                entity.LastModified = DateTime.Now;
+            }
             DbSet.UpdateRange(entities);
         }
 
@@ -59,6 +68,11 @@ namespace ZarvanOrder.Repositores
 
         public virtual void DeleteBatch(System.Collections.Generic.IEnumerable<T> entities)
         {
+            foreach (var entity in entities)
+            {
+                entity.IsDeleted = true;
+                entity.DeletedDate = DateTime.Now;
+            }
             DbSet.RemoveRange(entities);
         }
     }

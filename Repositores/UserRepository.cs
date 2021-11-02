@@ -15,7 +15,7 @@ using ZarvanOrder.Model.Entites;
 
 namespace ZarvanOrder.Repositores
 {
-    public class UserRepository : Repository<Model.Entites.User>, IUserRepository
+    public class UserRepository : Repository<Model.Entites.User>
     {
         private readonly DbFactory _dbFactory;
         private readonly UserManager<Model.Entites.User> _userManager;
@@ -102,6 +102,24 @@ namespace ZarvanOrder.Repositores
                 Code = Result.Errors.FirstOrDefault().Code,
                 Description = Result.Errors.FirstOrDefault().Description
             });
+        }
+
+        public async Task<bool> IsUniqueUserAsync(UniqueUserValidationRequst requst)
+        {
+            var user = await _userManager.FindByNameAsync(requst.UserName);
+            return user == null ? true : false;
+        }
+
+        public async Task<bool> IsUniqueEmailAsync(UniqueEmailValodationRequest requst)
+        {
+            var user = await _userManager.FindByEmailAsync(requst.Email);
+            return user == null ? true : false;
+        }
+
+        public async Task<bool> IsUniquePhoneNumberAsync(UniquePhoneNumber requst)
+        {
+            var user = await _userManager.Users.FirstOrDefaultAsync(u => u.PhoneNumber == requst.PhoneNumber);
+            return user == null ? true : false;
         }
     }
 }

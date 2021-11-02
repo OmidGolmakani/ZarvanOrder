@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace ZarvanOrder.Model.Entites
 {
-    public class User : IdentityUser<long>
+    public class User : IdentityUser<long>, Interfaces.Entites.IAuditEntity, Interfaces.Entites.IDeleteEntity
     {
         public User()
         {
@@ -30,5 +30,12 @@ namespace ZarvanOrder.Model.Entites
         public string Tel { get; set; }
         public string Address { get; set; }
         public string ReasonDeactivation { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public string CreatedBy { get; set; }
+        public DateTime? LastModified { get; set; }
+        public string LastModifiedBy { get; set; }
+        public bool IsDeleted { get; set; }
+        public DateTime? DeletedDate { get; set; }
+        public string DeletedBy { get; set; }
     }
 }
