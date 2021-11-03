@@ -17,7 +17,7 @@ namespace ZarvanOrder.Extensions.DependencyRegistration
 {
     internal static class Servises
     {
-        internal static IServiceCollection AddServises(this IServiceCollection services,IConfiguration configuration)
+        internal static IServiceCollection AddServises(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddEntityFrameworkSqlServer()
                .AddDbContext<AppDbContext>(options =>
@@ -30,6 +30,7 @@ namespace ZarvanOrder.Extensions.DependencyRegistration
             services.AddScoped<Func<AppDbContext>>((provider) => () => provider.GetService<AppDbContext>());
             services.AddScoped<DbFactory>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped(typeof(IService<,,,>),typeof(Service))();
             services.AddScoped<IUserService, UserService>();
             return services;
         }
