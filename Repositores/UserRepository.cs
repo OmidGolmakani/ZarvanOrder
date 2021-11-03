@@ -36,7 +36,7 @@ namespace ZarvanOrder.Repositores
 
         public override Model.Entites.User Add(Model.Entites.User entity)
         {
-            var Result = _userManager.CreateAsync(entity).Result;
+            var Result = _userManager.CreateAsync(entity, entity.PasswordHash).Result;
             if (Result.Succeeded)
             {
                 return entity;

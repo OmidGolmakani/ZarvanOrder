@@ -16,35 +16,28 @@ namespace ZarvanOrder.Controllers
                                                   IUserController
     {
         private readonly IUserService _userService;
-        private readonly IService<AddUserRequest, EditUserRequest, DeleteUserRequest, UserResponse> _service;
-        private readonly IGetService<GetUserRequest, GetUsersRequest, GetUsersRequest> _getService;
 
-        public UserController(IUserService userService,
-                              IService<AddUserRequest, EditUserRequest, DeleteUserRequest, UserResponse> service,
-                              IGetService<GetUserRequest, GetUsersRequest, GetUsersRequest> _getService
-                              )
+        public UserController(IUserService userService)
         {
             this._userService = userService;
-            this._service = service;
-            this._getService = _getService;
         }
         [HttpPost("BachDelete")]
         public async Task<IActionResult> BachDelete([FromForm] List<DeleteUserRequest> request)
         {
-            await _service.BatchDelete(request);
+            await _userService.BatchDelete(request);
             return Ok();
 
         }
         [HttpPost("Delete")]
         public async Task<IActionResult> Delete([FromForm] DeleteUserRequest request)
         {
-            await _service.Delete(request);
+            await _userService.Delete(request);
             return Ok();
         }
         [HttpGet("Get")]
         public async Task<IActionResult> Get([FromQuery] GetUserRequest request)
         {
-            return Ok(await _getService.GetAsync(request));
+            return Ok(await _userService.GetAsync(request));
         }
         [HttpPost("GetEmailVerification")]
         public Task GetEmailVerification(GetUserRequest request)
@@ -58,21 +51,21 @@ namespace ZarvanOrder.Controllers
         }
 
         [HttpGet("Gets")]
-        public async Task<IActionResult> Gets(GetUsersRequest request)
+        public async Task<IActionResult> Gets([FromQuery] GetUsersRequest request)
         {
-            return Ok(await _getService.GetsAsync(request));
+            return Ok(await _userService.GetsAsync(request));
         }
         [HttpPost("Post")]
         public async Task<IActionResult> Post([FromForm] AddUserRequest request)
         {
-            var result = await _service.Add(request);
+            var result = await _userService.Add(request);
             return CreatedAtAction(nameof(Get), new { id = result.Id }, result);
 
         }
         [HttpPut("Put")]
         public async Task<IActionResult> Put([FromForm] EditUserRequest request)
         {
-            var result = await _service.Update(request);
+            var result = await _userService.Update(request);
             return CreatedAtAction(nameof(Get), new { id = result.Id }, result);
         }
     }

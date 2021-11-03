@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using FluentValidation;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -9,6 +10,8 @@ using System.Threading.Tasks;
 using ZarvanOrder.Data.DbContext;
 using ZarvanOrder.Interfaces.DataServices;
 using ZarvanOrder.Interfaces.Repositores;
+using ZarvanOrder.Model.Dtos.Requests.Users;
+using ZarvanOrder.Model.Dtos.Responses.Users;
 using ZarvanOrder.Model.Validation;
 using ZarvanOrder.Repositores;
 using ZarvanOrder.Services.Data;
@@ -30,7 +33,6 @@ namespace ZarvanOrder.Extensions.DependencyRegistration
             services.AddScoped<Func<AppDbContext>>((provider) => () => provider.GetService<AppDbContext>());
             services.AddScoped<DbFactory>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddScoped(typeof(IService<,,,>),typeof(Service))();
             services.AddScoped<IUserService, UserService>();
             return services;
         }

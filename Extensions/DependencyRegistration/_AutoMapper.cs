@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ZarvanOrder.Configs;
+using ZarvanOrder.Configs.AutoMapper;
 
 namespace ZarvanOrder.Extensions.DependencyRegistration
 {

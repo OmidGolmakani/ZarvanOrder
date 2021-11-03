@@ -4,11 +4,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ZarvanOrder.Model.Dtos.Requests.Users;
+using ZarvanOrder.Model.Dtos.Responses.Users;
 using ZarvanOrder.Model.Entites;
 
 namespace ZarvanOrder.Interfaces.DataServices
 {
-    public interface IUserService 
+    public interface IUserService : IService<AddUserRequest, EditUserRequest, DeleteUserRequest, UserResponse>,
+                                    IGetService<GetUserRequest, GetUsersRequest, UserResponse>
     {
         Task<bool> IsUniqueUserAsync(Model.Dtos.Requests.Users.UniqueUserValidationRequst request);
         Task<bool> IsUniquePhoneNumberAsync(Model.Dtos.Requests.Users.UniquePhoneNumber request);

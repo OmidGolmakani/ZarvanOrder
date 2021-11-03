@@ -15,14 +15,12 @@ using ZarvanOrder.Model.Validation;
 
 namespace ZarvanOrder.Services.Data
 {
-    public class UserService : IService<AddUserRequest, EditUserRequest,DeleteUserRequest, UserResponse>,
-                               IGetService<GetUserRequest, GetUsersRequest, UserResponse>,
-                               IUserService
+    public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-
+        private readonly UserValidation _userValidation;
 
         public UserService(IUserRepository userRepository,
                            IUnitOfWork unitOfWork,
@@ -33,12 +31,13 @@ namespace ZarvanOrder.Services.Data
             this._mapper = mapper;
         }
 
-        public Task<UserResponse> Add(AddUserRequest request)
+        public async Task<UserResponse> Add(AddUserRequest request)
         {
+            
             var entity = _mapper.Map<Model.Entites.User>(request);
             _userRepository.Add(entity);
-            _unitOfWork.CommitAsync();
-            return Task.Run(() => _mapper.Map<UserResponse>(entity));
+            await _unitOfWork.CommitAsync();
+            return _mapper.Map<UserResponse>(entity);
         }
 
         public Task<List<IdentityResult>> AddUserToRole(AddUserToRoleRequest request)
@@ -46,20 +45,18 @@ namespace ZarvanOrder.Services.Data
             throw new NotImplementedException();
         }
 
-        public Task BatchDelete(IEnumerable<DeleteUserRequest> request)
+        public async Task BatchDelete(IEnumerable<DeleteUserRequest> request)
         {
             var entites = _mapper.Map<IEnumerable<Model.Entites.User>>(request);
             _userRepository.DeleteBatch(entites);
-            _unitOfWork.CommitAsync();
-            return Task.Run(() => true);
+            await _unitOfWork.CommitAsync();
         }
 
-        public Task BatchUpdate(IEnumerable<EditUserRequest> request)
+        public async Task BatchUpdate(IEnumerable<EditUserRequest> request)
         {
             var entites = _mapper.Map<IEnumerable<Model.Entites.User>>(request);
             _userRepository.UpdateBatch(entites);
-            _unitOfWork.CommitAsync();
-            return Task.Run(() => true);
+            await _unitOfWork.CommitAsync();
         }
 
         public async Task<int> CountAsync(GetUsersRequest request)
@@ -68,13 +65,11 @@ namespace ZarvanOrder.Services.Data
             return Count.Count();
         }
 
-        public Task Delete(DeleteUserRequest request)
+        public async Task Delete(DeleteUserRequest request)
         {
             var entity = _mapper.Map<Model.Entites.User>(request);
             _userRepository.Delete(entity);
-            _unitOfWork.CommitAsync();
-            var model = new UserResponse();
-            return Task.Run(() => _mapper.Map<Model.Entites.User, UserResponse>(entity, model));
+            await _unitOfWork.CommitAsync();
         }
 
         public async Task<UserResponse> GetAsync(GetUserRequest request)
@@ -123,12 +118,13 @@ namespace ZarvanOrder.Services.Data
             await _userRepository.SignoutAsync();
         }
 
-        public Task<UserResponse> Update(EditUserRequest request)
+        public async Task<UserResponse> Update(EditUserRequest request)
         {
             var entity = _mapper.Map<Model.Entites.User>(request);
             _userRepository.Update(entity);
+            await _unitOfWork.CommitAsync();
             var model = new UserResponse();
-            return Task.Run(() => _mapper.Map<Model.Entites.User, UserResponse>(entity, model));
+            return _mapper.Map<Model.Entites.User, UserResponse>(entity, model);
         }
 
         public Task<IdentityResult> VerifyPhoneNumber(string PhoneNumber, string Token)

@@ -37,9 +37,11 @@ namespace ZarvanOrder
             services.AddSwagger();
             services.MyIdentity();
             services.AddAutoMapperConfig();
-            services.AddControllersWithViews().AddFluentValidation();
             services.AddRepositores();
             services.AddServises(Configuration);
+            //services.AddControllersWithViews().AddFluentValidation();
+            //services.AddTransient<IValidator<Model.Entites.User>, Model.Validation.UserValidation>();
+            //services.AddControllersWithViews().AddFluentValidation();
             services.AddControllers();
             services.AddMvc();
         }
