@@ -15,18 +15,18 @@ using ZarvanOrder.Model.Entites;
 
 namespace ZarvanOrder.Repositores
 {
-    public class UserRepository : Repository<Model.Entites.User>
+    public class UserRepository : Repository<Model.Entites.User>, IUserRepository
     {
         private readonly DbFactory _dbFactory;
         private readonly UserManager<Model.Entites.User> _userManager;
         private readonly SignInManager<User> _signInManager;
-        private readonly Mapper _mapper;
+        private readonly IMapper _mapper;
 
         public UserRepository(DbFactory dbFactory,
                               UserManager<Model.Entites.User> userManager,
                               SignInManager<Model.Entites.User> signInManager,
-                              Mapper mapper)
-            : base(dbFactory)
+                              IMapper mapper)
+            : base(dbFactory, mapper)
         {
             _dbFactory = dbFactory;
             this._userManager = userManager;
@@ -84,7 +84,7 @@ namespace ZarvanOrder.Repositores
         {
             await _signInManager.SignOutAsync();
         }
-        public async Task<IdentityResult> AddUserToRoleAsync(GetUserRequest request,string Role)
+        public async Task<IdentityResult> AddUserToRoleAsync(GetUserRequest request, string Role)
         {
             var user = await _userManager.FindByIdAsync(request.Id.ToString());
             if (user == null) throw new NullReferenceException(Model.Messages.General.UserNotFound);

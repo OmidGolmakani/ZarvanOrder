@@ -21,19 +21,16 @@ namespace ZarvanOrder.Services.Data
     {
         private readonly IUserRepository _userRepository;
         private readonly IUnitOfWork _unitOfWork;
-        private readonly Mapper _mapper;
-        private readonly UserValidation userValidation;
+        private readonly IMapper _mapper;
 
 
         public UserService(IUserRepository userRepository,
                            IUnitOfWork unitOfWork,
-                           Mapper mapper,
-                           UserValidation userValidation)
+                           IMapper mapper)
         {
             this._userRepository = userRepository;
             this._unitOfWork = unitOfWork;
             this._mapper = mapper;
-            this.userValidation = userValidation;
         }
 
         public Task<UserResponse> Add(AddUserRequest request)

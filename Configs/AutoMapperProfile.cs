@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace ZarvanOrder.Configs
 {
-    internal class AutoMapper : Profile
+    public class AutoMapperProfile : Profile
     {
-        internal AutoMapper()
+        public AutoMapperProfile()
         {
-            CreateMap<Model.Dtos.Responses.Users.UserResponse, Model.Entites.User>().ReverseMap();
+            //CreateMap<Model.Dtos.Responses.Users.UserResponse, Model.Entites.User>().ReverseMap();
         }
     }
 }

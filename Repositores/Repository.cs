@@ -12,14 +12,14 @@ namespace ZarvanOrder.Repositores
                                                                  Interfaces.Entites.IDeleteEntity
     {
         private readonly DbFactory _dbFactory;
-        private readonly Mapper _mapper;
+        private readonly IMapper _mapper;
         private DbSet<T> _dbSet;
         protected DbSet<T> DbSet
         {
             get => _dbSet ?? (_dbSet = _dbFactory.DbContext.Set<T>());
         }
         public Repository(DbFactory dbFactory,
-                          AutoMapper.Mapper mapper)
+                          IMapper mapper)
         {
             _dbFactory = dbFactory;
             this._mapper = mapper;

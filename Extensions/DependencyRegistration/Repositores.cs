@@ -14,7 +14,7 @@ namespace ZarvanOrder.Extensions.DependencyRegistration
         internal static IServiceCollection AddRepositores(this IServiceCollection services)
         {
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-            services.AddScoped(typeof(IUserRepository), typeof(UserRepository));
+            services.AddScoped<IUserRepository, UserRepository>();
             return services;
         }
     }

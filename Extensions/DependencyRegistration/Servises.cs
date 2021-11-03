@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using ZarvanOrder.Data.DbContext;
 using ZarvanOrder.Interfaces.DataServices;
 using ZarvanOrder.Interfaces.Repositores;
+using ZarvanOrder.Model.Validation;
 using ZarvanOrder.Repositores;
 using ZarvanOrder.Services.Data;
 

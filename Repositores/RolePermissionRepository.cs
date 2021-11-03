@@ -10,7 +10,7 @@ namespace ZarvanOrder.Repositores
 {
     public class RolePermissionRepository : Repository<Model.Entites.RolePermission>
     {
-        public RolePermissionRepository(DbFactory dbFactory, Mapper mapper) : base(dbFactory, mapper)
+        public RolePermissionRepository(DbFactory dbFactory, IMapper mapper) : base(dbFactory, mapper)
         {
         }
     }

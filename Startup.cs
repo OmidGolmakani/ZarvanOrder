@@ -1,3 +1,5 @@
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -32,13 +34,13 @@ namespace ZarvanOrder
         {
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddMicrosoftIdentityWebApi(Configuration.GetSection("AzureAd"));
-
-            services.AddControllers();
             services.AddSwagger();
             services.MyIdentity();
-            services.AddServises(Configuration);
+            services.AddAutoMapperConfig();
+            services.AddControllersWithViews().AddFluentValidation();
             services.AddRepositores();
-            services.AddAutoMapper();
+            services.AddServises(Configuration);
+            services.AddControllers();
             services.AddMvc();
         }
 
