@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -67,6 +68,16 @@ namespace ZarvanOrder.Controllers
         {
             var result = await _userService.Update(request);
             return CreatedAtAction(nameof(Get), new { id = result.Id }, result);
+        }
+
+        public async Task<IActionResult> Signin(LoginRequst requst)
+        {
+            return Ok(await _userService.SignInAsync(requst));
+        }
+
+        public Task Signout()
+        {
+            throw new NotImplementedException();
         }
     }
 }

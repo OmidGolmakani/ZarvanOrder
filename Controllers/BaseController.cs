@@ -9,6 +9,7 @@ using ZarvanOrder.Filter;
 namespace ZarvanOrder.Controllers
 {
     [Route("api/[controller]")]
+    [Produces(typeof(JsonResult))]
     [ApiController]
     [CustomAuthorizationFilter]
     public class BaseController : ControllerBase

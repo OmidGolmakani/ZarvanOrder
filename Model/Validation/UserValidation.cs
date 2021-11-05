@@ -19,13 +19,11 @@ namespace ZarvanOrder.Model.Validation
             this._userService = userService;
             _mapper = mapper;
             RuleFor(p => p.Id).NotNull().WithMessage("آی دی اجباری می باشد");
-            RuleFor(p => p.Name).NotEmpty().NotNull().Length(0).WithMessage("نام اجباری می باشد").
-                                 MaximumLength(60).WithMessage(Messages.General.MaximumLength);
-            RuleFor(p => p.Family).NotNull().Length(0).WithMessage("نام خانوادگی اجباری می باشد").
-                                   MaximumLength(60).WithMessage(Messages.General.MaximumLength);
-            RuleFor(p => p.UserName).NotEmpty().NotNull().WithMessage("نام کاربری اجباری می باشد");
-            RuleFor(p => p.PasswordHash).NotEmpty().NotNull().WithMessage("رمز عبور اجباری می باشد");
-            RuleFor(p => p.PhoneNumber).NotEmpty().NotNull().WithMessage("تلفن همراه اجباری می باشد");
+            RuleFor(p => p.Name).NotNull().WithMessage("نام اجباری می باشد");
+            RuleFor(p => p.Family).NotNull().WithMessage("نام خانوادگی اجباری می باشد");
+            RuleFor(p => p.UserName).NotNull().WithMessage("نام کاربری اجباری می باشد");
+            RuleFor(p => p.PasswordHash).NotNull().WithMessage("رمز عبور اجباری می باشد");
+            RuleFor(p => p.PhoneNumber).NotNull().WithMessage("تلفن همراه اجباری می باشد");
             RuleFor(p => p.Email).EmailAddress(FluentValidation.Validators.EmailValidationMode.AspNetCoreCompatible).WithMessage("آدرس ایمیل غیر مجاز می باشد");
             RuleFor(p => p).MustAsync((p, cancellation) => IsUniqueUserNameAsync(p)).WithMessage("نام کاربری تکراری می باشد");
 

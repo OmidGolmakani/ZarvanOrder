@@ -33,7 +33,7 @@ namespace ZarvanOrder
             services.AddServises(Configuration);
             services.AddControllersWithViews().AddFluentValidation();
             services.AddControllers();
-            services.AddMvc();
+            services.AddMvc().AddFluentValidation();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

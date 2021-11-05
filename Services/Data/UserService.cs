@@ -35,6 +35,7 @@ namespace ZarvanOrder.Services.Data
         public async Task<UserResponse> Add(AddUserRequest request)
         {
             var entity = _mapper.Map<Model.Entites.User>(request);
+            entity.PasswordHash = request.Password;
             UserValidation validator = new UserValidation(this, _mapper);
             await validator.ValidateAndThrowAsync(entity);
             _userRepository.Add(entity);
