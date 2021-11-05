@@ -69,15 +69,15 @@ namespace ZarvanOrder.Controllers
             var result = await _userService.Update(request);
             return CreatedAtAction(nameof(Get), new { id = result.Id }, result);
         }
-
-        public async Task<IActionResult> Signin(LoginRequst requst)
+        [HttpPost("Signin")]
+        public async Task<IActionResult> SigninAsync(LoginRequst requst)
         {
             return Ok(await _userService.SignInAsync(requst));
         }
-
-        public Task Signout()
+        [HttpPost("Signout")]
+        public async Task Signout()
         {
-            throw new NotImplementedException();
+            await _userService.SignoutAsync();
         }
     }
 }

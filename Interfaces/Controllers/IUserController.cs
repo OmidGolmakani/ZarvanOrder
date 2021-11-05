@@ -7,7 +7,7 @@ namespace ZarvanOrder.Interfaces.Controllers
     {
         Task GetPhoneNumberVerification(Model.Dtos.Requests.Users.GetUserRequest request);
         Task GetEmailVerification(Model.Dtos.Requests.Users.GetUserRequest request);
-        Task<IActionResult> Signin(Model.Dtos.Requests.Users.LoginRequst requst);
+        Task<IActionResult> SigninAsync(Model.Dtos.Requests.Users.LoginRequst requst);
         Task Signout();
     }
 }
