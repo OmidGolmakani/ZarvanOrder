@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ZarvanOrder.CustomException;
+using ZarvanOrder.Extensions.Other;
 using ZarvanOrder.Interfaces.DataServices;
 using ZarvanOrder.Interfaces.Repositores;
 using ZarvanOrder.Model.Dtos.Requests.Users;
@@ -20,7 +22,6 @@ namespace ZarvanOrder.Services.Data
         private readonly IUserRepository _userRepository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        private readonly UserValidation _userValidation;
 
         public UserService(IUserRepository userRepository,
                            IUnitOfWork unitOfWork,
@@ -33,8 +34,9 @@ namespace ZarvanOrder.Services.Data
 
         public async Task<UserResponse> Add(AddUserRequest request)
         {
-            
             var entity = _mapper.Map<Model.Entites.User>(request);
+            UserValidation validator = new UserValidation(this, _mapper);
+            await validator.ValidateAndThrowAsync(entity);
             _userRepository.Add(entity);
             await _unitOfWork.CommitAsync();
             return _mapper.Map<UserResponse>(entity);

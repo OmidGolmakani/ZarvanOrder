@@ -11,24 +11,25 @@ namespace ZarvanOrder.Model.Validation
     public class UserValidation : AbstractValidator<Entites.User>
     {
         private readonly IUserService _userService;
-        private readonly Mapper _mapper;
+        private readonly IMapper _mapper;
 
         public UserValidation(IUserService userService,
-                              Mapper mapper)
+                              IMapper mapper)
         {
             this._userService = userService;
             _mapper = mapper;
             RuleFor(p => p.Id).NotNull().WithMessage("آی دی اجباری می باشد");
-            RuleFor(p => p.Name).NotNull().Length(0).WithMessage("نام اجباری می باشد").
+            RuleFor(p => p.Name).NotEmpty().NotNull().Length(0).WithMessage("نام اجباری می باشد").
                                  MaximumLength(60).WithMessage(Messages.General.MaximumLength);
             RuleFor(p => p.Family).NotNull().Length(0).WithMessage("نام خانوادگی اجباری می باشد").
                                    MaximumLength(60).WithMessage(Messages.General.MaximumLength);
+            RuleFor(p => p.UserName).NotEmpty().NotNull().WithMessage("نام کاربری اجباری می باشد");
+            RuleFor(p => p.PasswordHash).NotEmpty().NotNull().WithMessage("رمز عبور اجباری می باشد");
+            RuleFor(p => p.PhoneNumber).NotEmpty().NotNull().WithMessage("تلفن همراه اجباری می باشد");
+            RuleFor(p => p.Email).EmailAddress(FluentValidation.Validators.EmailValidationMode.AspNetCoreCompatible).WithMessage("آدرس ایمیل غیر مجاز می باشد");
+            RuleFor(p => p).MustAsync((p, cancellation) => IsUniqueUserNameAsync(p)).WithMessage("نام کاربری تکراری می باشد");
 
-            RuleFor(p => p).NotEmpty().NotNull().WithMessage("نام کاربری اجباری می باشد").
-                            MustAsync((p, cancellation) => IsUniqueUserNameAsync(p)).WithMessage("نام کاربری تکراری می باشد");
-
-            RuleFor(p => p).NotEmpty().NotNull().WithMessage("تلفن همراه اجباری می باشد").
-                            MustAsync((p, cancellation) => IsUniquePhoneNumberAsync(p)).WithMessage("تلغن همراه تکراری می باشد");
+            RuleFor(p => p).NotEmpty().MustAsync((p, cancellation) => IsUniquePhoneNumberAsync(p)).WithMessage("تلغن همراه تکراری می باشد");
 
             RuleFor(p => p).MustAsync((p, cancellation) => IsUniqueEmailAsync(p)).WithMessage("پست الکترونیک تکراری می باشد");
 
@@ -55,7 +56,7 @@ namespace ZarvanOrder.Model.Validation
         }
         private bool IsUniqueNationalCodeAsync(Entites.User request)
         {
-            return request.NationalCode.Length <= 0 || request.NationalCode.Length == 10 ? true : false;
+            return request.NationalCode==null || request.NationalCode.Length <= 0 || request.NationalCode.Length == 10 ? true : false;
         }
 
     }

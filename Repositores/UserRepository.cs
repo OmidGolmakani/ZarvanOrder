@@ -106,18 +106,21 @@ namespace ZarvanOrder.Repositores
 
         public async Task<bool> IsUniqueUserAsync(UniqueUserValidationRequst requst)
         {
+            if (requst.UserName == null) return true;
             var user = await _userManager.FindByNameAsync(requst.UserName);
             return user == null ? true : false;
         }
 
         public async Task<bool> IsUniqueEmailAsync(UniqueEmailValodationRequest requst)
         {
+            if (requst.Email == null) return true;
             var user = await _userManager.FindByEmailAsync(requst.Email);
             return user == null ? true : false;
         }
 
         public async Task<bool> IsUniquePhoneNumberAsync(UniquePhoneNumber requst)
         {
+            if (requst.PhoneNumber == null) return true;
             var user = await _userManager.Users.FirstOrDefaultAsync(u => u.PhoneNumber == requst.PhoneNumber);
             return user == null ? true : false;
         }

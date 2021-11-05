@@ -527,6 +527,16 @@ namespace ZarvanOrder.Extensions.Other
             if (List.Count == 0) return null;
             return Newtonsoft.Json.JsonConvert.SerializeObject(List);
         }
+        internal static ZarvanOrder.CustomException.MyException ToJson(this List<FluentValidation.Results.ValidationFailure> x)
+        {
+            var Result = Newtonsoft.Json.JsonConvert.SerializeObject((from e in x
+                                                                      select new ZarvanOrder.CustomException.Error()
+                                                                      {
+                                                                          Code = e.ErrorCode,
+                                                                          Description = e.ErrorMessage
+                                                                      }).ToList());
+            return new CustomException.MyException(Result);
+        }
         internal static ZarvanOrder.CustomException.MyException ToJson(this CustomException.MyException exception, CustomException.Error error)
         {
             return new CustomException.MyException(Newtonsoft.Json.JsonConvert.SerializeObject(error));
