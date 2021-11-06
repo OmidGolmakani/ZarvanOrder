@@ -4,10 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using ZarvanOrder.CustomException;
-using ZarvanOrder.Extensions.Other;
 using ZarvanOrder.Interfaces.DataServices;
 using ZarvanOrder.Interfaces.Repositores;
 using ZarvanOrder.Model.Dtos.Requests.Users;
@@ -111,7 +108,7 @@ namespace ZarvanOrder.Services.Data
             throw new NotImplementedException();
         }
 
-        public async Task<SignInResult> SignInAsync(LoginRequst request)
+        public async Task<SigninResponse> SignInAsync(LoginRequst request)
         {
             return await _userRepository.SigninAsync(request);
         }

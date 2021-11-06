@@ -11,6 +11,7 @@ using ZarvanOrder.Data.DbContext;
 using ZarvanOrder.Extensions.Other;
 using ZarvanOrder.Interfaces.Repositores;
 using ZarvanOrder.Model.Dtos.Requests.Users;
+using ZarvanOrder.Model.Dtos.Responses.Users;
 using ZarvanOrder.Model.Entites;
 
 namespace ZarvanOrder.Repositores
@@ -73,11 +74,18 @@ namespace ZarvanOrder.Repositores
             return await _userManager.GetRolesAsync(user);
         }
 
-        public async Task<SignInResult> SigninAsync(LoginRequst requst)
+        public async Task<SigninResponse> SigninAsync(LoginRequst requst)
         {
-            var user = await _userManager.FindByNameAsync(requst.UserName);
+            var user = _mapper.Map<UserResponse>(await _userManager.FindByNameAsync(requst.UserName));
             if (user == null) throw new NullReferenceException(Model.Messages.General.UserNotFound);
-            return await _signInManager.PasswordSignInAsync(requst.UserName, requst.Password, requst.isPersistent, false);
+            SignInResult result = await _signInManager.PasswordSignInAsync(requst.UserName, requst.Password, requst.isPersistent, false);
+            return new SigninResponse()
+            {
+                SignIn = result,
+                UserId = user.Id,
+                Token = result.Succeeded == false ? null : Helpers.JWTTokenManager.GenerateToken(user, new List<string>()),
+                IsAdmin = false
+            };
         }
 
         public async Task SignoutAsync()

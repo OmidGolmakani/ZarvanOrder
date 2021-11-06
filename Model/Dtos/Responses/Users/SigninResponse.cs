@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace ZarvanOrder.Model.Dtos.Responses.Users
 {
-    public class SigninResponse
+    public class SigninResponse : Bases.BaseResponse
     {
         public long UserId { get; set; }
         public SignInResult SignIn { get; set; }
-        public string Token { get; set; }
+        public TokenResponse Token { get; set; }
         public bool IsAdmin { get; set; }
     }
 }

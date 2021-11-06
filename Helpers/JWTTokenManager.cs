@@ -12,6 +12,7 @@ using ZarvanOrder.Data.DbContext;
 using ZarvanOrder.Extensions.Other;
 using ZarvanOrder.Model.Dtos.Responses.Authentications;
 using ZarvanOrder.Model.Dtos.Responses.RolePermissions;
+using ZarvanOrder.Model.Dtos.Responses.Users;
 
 namespace ZarvanOrder.Helpers
 {
@@ -48,21 +49,8 @@ namespace ZarvanOrder.Helpers
             SecurityToken token = tokenHandler.CreateToken(TokenDescriptor);
             return tokenHandler.WriteToken(token);
         }
-        public static Tuple<string, double> GenerateToken(string username, AppDbContext dbContext)
+        public static TokenResponse GenerateToken(UserResponse user, List<string> rolesName)
         {
-            var _User = dbContext.Users.FirstOrDefault(x => x.UserName == username);
-            if (_User == null)
-            {
-                throw new Exception("کاربر مورد نظر یافت نشد");
-            }
-            var _Roles = (from ru in dbContext.UserRoles
-                          join r in dbContext.Roles
-                          on ru.RoleId equals r.Id
-                          where ru.UserId == _User.Id
-                          select new
-                          {
-                              RoleName = r.Name
-                          }).ToList();
 
             JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
             ClaimsIdentity claims = new ClaimsIdentity();
@@ -70,12 +58,12 @@ namespace ZarvanOrder.Helpers
             var SecurityKey = new SymmetricSecurityKey(key);
             IdentityModelEventSource.ShowPII = true;
 
-            claims.AddClaim(new Claim(ClaimTypes.NameIdentifier, _User.Id.ToString()));
-            claims.AddClaim(new Claim(ClaimTypes.Name, _User.UserName));
-            claims.AddClaim(new Claim(ClaimTypes.MobilePhone, _User.PhoneNumber));
-            claims.AddClaim(new Claim(ClaimTypes.Email, _User.Email ?? ""));
+            claims.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()));
+            claims.AddClaim(new Claim(ClaimTypes.Name, user.UserName));
+            claims.AddClaim(new Claim(ClaimTypes.MobilePhone, user.PhoneNumber));
+            claims.AddClaim(new Claim(ClaimTypes.Email, user.Email ?? ""));
             claims.AddClaim(new Claim(ClaimTypes.Expired, DateTime.Now.AddMinutes(AuthInfo.ExpiryTime).ToString()));
-            claims.AddClaim(new Claim(ClaimTypes.Role, string.Join(string.Empty, _Roles.Select(x => x.RoleName).ToArray())));
+            claims.AddClaim(new Claim(ClaimTypes.Role, string.Join(string.Empty, rolesName.ToArray())));
 
             SecurityTokenDescriptor TokenDescriptor = new SecurityTokenDescriptor()
             {
@@ -85,8 +73,7 @@ namespace ZarvanOrder.Helpers
                 NotBefore = DateTime.Now
             };
             SecurityToken token = tokenHandler.CreateToken(TokenDescriptor);
-            double TotalMilliseconds = Math.Round((DateTime.Now.AddMinutes(AuthInfo.ExpiryTime) - DateTime.Now).TotalMilliseconds, 0);
-            return new Tuple<string, double>(tokenHandler.WriteToken(token), TotalMilliseconds);
+            return new TokenResponse() { Value = tokenHandler.WriteToken(token) };
         }
         public static ClaimsPrincipal GetPrincipal(string token)
         {
