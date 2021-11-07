@@ -532,7 +532,7 @@ namespace ZarvanOrder.Extensions.Other
             var Result = Newtonsoft.Json.JsonConvert.SerializeObject((from e in x
                                                                       select new ZarvanOrder.CustomException.Error()
                                                                       {
-                                                                          Code = e.ErrorCode,
+                                                                          Code = e.ErrorCode.ToInt(),
                                                                           Description = e.ErrorMessage
                                                                       }).ToList());
             return new CustomException.MyException(Result);

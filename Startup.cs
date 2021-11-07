@@ -45,6 +45,7 @@ namespace ZarvanOrder
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ZarvanOrder v1"));
+                app.ConfigureExceptionHandler(logger);
             }
             else
             {

@@ -5,8 +5,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using ZarvanOrder.CustomException;
 using ZarvanOrder.Data.DbContext;
 using ZarvanOrder.Extensions.Other;
 using ZarvanOrder.Interfaces.Repositores;
@@ -44,7 +46,7 @@ namespace ZarvanOrder.Repositores
             }
             throw new CustomException.MyException().ToJson(new CustomException.Error()
             {
-                Code = Result.Errors.FirstOrDefault().Code,
+                Code = Result.Errors.FirstOrDefault().Code.ToInt(),
                 Description = Result.Errors.FirstOrDefault().Description
             });
         }
@@ -70,14 +72,14 @@ namespace ZarvanOrder.Repositores
         public async Task<IList<string>> GetRolesAsync(GetUserRequest request)
         {
             var user = _mapper.Map<Model.Entites.User>(GetById(request));
-            if (user == null) throw new NullReferenceException(Model.Messages.General.UserNotFound);
+            if (user == null) throw new MyException((int)HttpStatusCode.NotFound, Model.Messages.General.UserNotFound);
             return await _userManager.GetRolesAsync(user);
         }
 
         public async Task<SigninResponse> SigninAsync(LoginRequst requst)
         {
             var user = _mapper.Map<UserResponse>(await _userManager.FindByNameAsync(requst.UserName));
-            if (user == null) throw new NullReferenceException(Model.Messages.General.UserNotFound);
+            if (user == null) throw new MyException((int)HttpStatusCode.NotFound, Model.Messages.General.UserNotFound);
             SignInResult result = await _signInManager.PasswordSignInAsync(requst.UserName, requst.Password, requst.isPersistent, false);
             return new SigninResponse()
             {
@@ -107,7 +109,7 @@ namespace ZarvanOrder.Repositores
             }
             throw new CustomException.MyException().ToJson(new CustomException.Error()
             {
-                Code = Result.Errors.FirstOrDefault().Code,
+                Code = Result.Errors.FirstOrDefault().Code.ToInt(),
                 Description = Result.Errors.FirstOrDefault().Description
             });
         }

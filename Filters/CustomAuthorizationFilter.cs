@@ -7,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ZarvanOrder.Filter
+namespace ZarvanOrder.Filters
 {
     public class CustomAuthorizationFilter : ActionFilterAttribute, IAllowAnonymous 
     {
