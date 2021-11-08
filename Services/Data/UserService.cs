@@ -33,10 +33,10 @@ namespace ZarvanOrder.Services.Data
         {
             var entity = _mapper.Map<Model.Entites.User>(request);
             entity.PasswordHash = request.Password;
+            entity.PhoneNumberConfirmed = true;
             UserValidation validator = new UserValidation(this, _mapper);
             await validator.ValidateAndThrowAsync(entity);
-            _userRepository.Add(entity);
-            await _unitOfWork.CommitAsync();
+             _userRepository.Add(entity);
             return _mapper.Map<UserResponse>(entity);
         }
 
@@ -56,7 +56,6 @@ namespace ZarvanOrder.Services.Data
         {
             var entites = _mapper.Map<IEnumerable<Model.Entites.User>>(request);
             _userRepository.UpdateBatch(entites);
-            await _unitOfWork.CommitAsync();
         }
 
         public async Task<int> CountAsync(GetUsersRequest request)

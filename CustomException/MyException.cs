@@ -11,22 +11,25 @@ namespace ZarvanOrder.CustomException
     {
         internal MyException()
         { Error = new Error(); }
-
+        internal MyException(int code, string message) :
+            base(message)
+        {
+            Error.Code = code;
+            Error.Description = message;
+        }
         internal MyException(string message)
             : base(message)
-        { Error = new Error(); }
-        internal MyException(int Code, string message)
         {
-            this.Error = new Error()
-            {
-                Code = Code,
-                Description = message
-            };
+            this.Error.Code = 0;
+            this.Error.Description = message;
         }
 
         internal MyException(string message, Exception innerException)
             : base(message, innerException)
-        { }
-        public Error Error { get; set; }
+        {
+            this.Error.Code = 0;
+            this.Error.Description = message;
+        }
+        public Error Error { get; set; } = new Error();
     }
 }

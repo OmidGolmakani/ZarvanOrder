@@ -44,11 +44,7 @@ namespace ZarvanOrder.Repositores
             {
                 return entity;
             }
-            throw new CustomException.MyException().ToJson(new CustomException.Error()
-            {
-                Code = Result.Errors.FirstOrDefault().Code.ToInt(),
-                Description = Result.Errors.FirstOrDefault().Description
-            });
+            throw new MyException(-1, Result.Errors.FirstOrDefault().Description);
         }
 
         public Task<IQueryable<Model.Entites.User>> Get(GetUsersRequest request, bool includeDeleted = false)
@@ -97,7 +93,7 @@ namespace ZarvanOrder.Repositores
         public async Task<IdentityResult> AddUserToRoleAsync(GetUserRequest request, string Role)
         {
             var user = await _userManager.FindByIdAsync(request.Id.ToString());
-            if (user == null) throw new NullReferenceException(Model.Messages.General.UserNotFound);
+            if (user == null) throw new MyException(Model.Messages.General.UserNotFound);
             return await _userManager.AddToRoleAsync(user, Role);
         }
         public override Model.Entites.User Update(Model.Entites.User entity)
@@ -107,11 +103,7 @@ namespace ZarvanOrder.Repositores
             {
                 return entity;
             }
-            throw new CustomException.MyException().ToJson(new CustomException.Error()
-            {
-                Code = Result.Errors.FirstOrDefault().Code.ToInt(),
-                Description = Result.Errors.FirstOrDefault().Description
-            });
+            throw new MyException(-1, Result.Errors.FirstOrDefault().Description);
         }
 
         public async Task<bool> IsUniqueUserAsync(UniqueUserValidationRequst requst)

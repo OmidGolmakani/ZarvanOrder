@@ -18,22 +18,18 @@ namespace ZarvanOrder.Middleware
             {
                 var exceptionHandlerPathFeature = context.Features.Get<IExceptionHandlerPathFeature>();
                 var ex = exceptionHandlerPathFeature.Error;
-                Error Err = null;
+                Error Err = new Error();
 
-                if (ex.GetType().Equals(typeof(FluentValidation.ValidationException)) == true ||
-                    ex.GetType().Equals(typeof(MyException)) == true)
+                if (ex.GetType().Equals(typeof(MyException)) == true)
                 {
-                    Err = new Error()
-                    {
-                        Description = ex.Message,
-                        Code = context.Response.StatusCode
-                    };
-                    if (ex.GetType().Equals(typeof(FluentValidation.ValidationException)) == true)
-                    {
-                        Err.Code = (int)System.Net.HttpStatusCode.BadRequest;
-                    }
-
+                    Err = ((MyException)ex).Error;
                 }
+                else if (ex.GetType().Equals(typeof(FluentValidation.ValidationException)) == true)
+                {
+                    Err.Description = ex.Message;
+                    Err.Code = (int)System.Net.HttpStatusCode.BadRequest;
+                }
+
                 else
                 {
                     Err = new Error()
@@ -43,10 +39,10 @@ namespace ZarvanOrder.Middleware
                     };
                     logger.LogError(ex, ex.Message);
                 }
-                var result = JsonConvert.SerializeObject(Err);
+                var result = JsonConvert.SerializeObject(new Error() {Code =1,Description ="222" });
                 context.Response.StatusCode = Err.Code.ToInt();
                 context.Response.ContentType = "application/json";
-               await context.Response.WriteAsync(result);
+                await context.Response.WriteAsync(result);
             }));
             app.UseHsts();
         }

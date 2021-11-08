@@ -8,18 +8,22 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Identity.Web;
 using ZarvanOrder.Extensions.DependencyRegistration;
+using ZarvanOrder.Filters;
 using ZarvanOrder.Middleware;
 
 namespace ZarvanOrder
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public IConfiguration Configuration { get; }
+        public IWebHostEnvironment Env { get; }
+
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
+            this.Env = env;
         }
 
-        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -34,7 +38,17 @@ namespace ZarvanOrder
             services.AddServises(Configuration);
             services.AddControllersWithViews().AddFluentValidation();
             services.AddControllers();
-            services.AddMvc().AddFluentValidation();
+            if (Env.IsDevelopment() == false)
+            {
+                services.AddMvc(config =>
+                {
+                    config.Filters.Add(new CustomExceptionFilter());
+                }).AddFluentValidation();
+            }
+            else
+            {
+                services.AddMvc().AddFluentValidation();
+            }
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -45,11 +59,11 @@ namespace ZarvanOrder
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ZarvanOrder v1"));
-                app.ConfigureExceptionHandler(logger);
+                //app.ConfigureExceptionHandler(logger);
             }
             else
             {
-                app.ConfigureExceptionHandler(logger);
+                //app.ConfigureExceptionHandler(logger);
             }
             app.UseHttpsRedirection();
 

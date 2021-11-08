@@ -11,7 +11,7 @@ namespace ZarvanOrder.Controllers
     [Route("api/[controller]")]
     [Produces(typeof(JsonResult))]
     [ApiController]
-    [CustomExceptionFilter]
+    //[CustomExceptionFilter]
     [CustomAuthorizationFilter]
     public class BaseController : ControllerBase
     {
