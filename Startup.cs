@@ -43,6 +43,7 @@ namespace ZarvanOrder
                 services.AddMvc(config =>
                 {
                     config.Filters.Add(new CustomExceptionFilter());
+                    config.Filters.Add(new CustomAuthorizationFilter());
                 }).AddFluentValidation();
             }
             else
