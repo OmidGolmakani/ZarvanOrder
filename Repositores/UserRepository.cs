@@ -74,14 +74,26 @@ namespace ZarvanOrder.Repositores
 
         public async Task<SigninResponse> SigninAsync(LoginRequst requst)
         {
-            var user = _mapper.Map<UserResponse>(await _userManager.FindByNameAsync(requst.UserName));
-            if (user == null) throw new MyException((int)HttpStatusCode.NotFound, Model.Messages.General.UserNotFound);
+            var entity = await _userManager.FindByNameAsync(requst.UserName);
+            var model = _mapper.Map<UserResponse>(entity);
+            if (model == null) throw new MyException((int)HttpStatusCode.NotFound, Model.Messages.General.UserNotFound);
             SignInResult result = await _signInManager.PasswordSignInAsync(requst.UserName, requst.Password, requst.isPersistent, false);
+            if (result.Succeeded == false)
+            {
+                if (entity.PhoneNumberConfirmed == false)
+                {
+                    throw new MyException((int)HttpStatusCode.InternalServerError, "تلفن همراه تایید نشده است");
+                }
+                else if (entity.PhoneNumberConfirmed)
+                {
+                    throw new MyException((int)HttpStatusCode.BadRequest, "رمز عبور اشتباه می باشد");
+                }
+            }
             return new SigninResponse()
             {
                 SignIn = result,
-                UserId = user.Id,
-                Token = result.Succeeded == false ? null : Helpers.JWTTokenManager.GenerateToken(user, new List<string>()),
+                UserId = model.Id,
+                Token = result.Succeeded == false ? null : Helpers.JWTTokenManager.GenerateToken(model, new List<string>()),
                 IsAdmin = false
             };
         }

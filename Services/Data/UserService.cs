@@ -49,13 +49,14 @@ namespace ZarvanOrder.Services.Data
         {
             var entites = _mapper.Map<IEnumerable<Model.Entites.User>>(request);
             _userRepository.DeleteBatch(entites);
-            await _unitOfWork.CommitAsync();
+            await Task.Delay(0);
         }
 
         public async Task BatchUpdate(IEnumerable<EditUserRequest> request)
         {
             var entites = _mapper.Map<IEnumerable<Model.Entites.User>>(request);
             _userRepository.UpdateBatch(entites);
+            await Task.Delay(0);
         }
 
         public async Task<int> CountAsync(GetUsersRequest request)
@@ -67,6 +68,8 @@ namespace ZarvanOrder.Services.Data
         public async Task Delete(DeleteUserRequest request)
         {
             var entity = _mapper.Map<Model.Entites.User>(request);
+            entity.LockoutEnabled = true;
+            entity.LockoutEnd = DateTimeOffset.MaxValue;
             _userRepository.Delete(entity);
             await _unitOfWork.CommitAsync();
         }
@@ -121,8 +124,8 @@ namespace ZarvanOrder.Services.Data
         {
             var entity = _mapper.Map<Model.Entites.User>(request);
             _userRepository.Update(entity);
-            await _unitOfWork.CommitAsync();
             var model = new UserResponse();
+            await Task.Delay(0);
             return _mapper.Map<Model.Entites.User, UserResponse>(entity, model);
         }
 
