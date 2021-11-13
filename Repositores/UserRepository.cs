@@ -110,6 +110,7 @@ namespace ZarvanOrder.Repositores
         }
         public override Model.Entites.User Update(Model.Entites.User entity)
         {
+            entity = _userManager.FindByIdAsync(entity.Id.ToString()).Result;
             var Result = _userManager.UpdateAsync(entity).Result;
             if (Result.Succeeded)
             {

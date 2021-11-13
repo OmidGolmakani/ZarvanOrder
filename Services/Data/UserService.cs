@@ -36,7 +36,7 @@ namespace ZarvanOrder.Services.Data
             entity.PhoneNumberConfirmed = true;
             UserValidation validator = new UserValidation(this, _mapper);
             await validator.ValidateAndThrowAsync(entity);
-             _userRepository.Add(entity);
+            _userRepository.Add(entity);
             return _mapper.Map<UserResponse>(entity);
         }
 
@@ -122,7 +122,8 @@ namespace ZarvanOrder.Services.Data
 
         public async Task<UserResponse> Update(EditUserRequest request)
         {
-            var entity = _mapper.Map<Model.Entites.User>(request);
+            Model.Entites.User entity = new Model.Entites.User();
+            _mapper.Map<EditUserRequest, Model.Entites.User>(request, entity);
             _userRepository.Update(entity);
             var model = new UserResponse();
             await Task.Delay(0);
