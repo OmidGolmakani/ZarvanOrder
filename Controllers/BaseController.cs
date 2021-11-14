@@ -10,8 +10,8 @@ namespace ZarvanOrder.Controllers
 {
     [Route("api/[controller]")]
     [Produces(typeof(JsonResult))]
+    [Microsoft.AspNetCore.Cors.EnableCors("ZarvanOrder")]
     [ApiController]
-    //[CustomExceptionFilter]
     [CustomAuthorizationFilter]
     public class BaseController : ControllerBase
     {

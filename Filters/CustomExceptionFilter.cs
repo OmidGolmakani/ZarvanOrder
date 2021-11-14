@@ -30,7 +30,12 @@ namespace ZarvanOrder.Filters
             }
             if (context.Exception.GetType() == typeof(FluentValidation.ValidationException))
             {
-                exception = new MyException((int)HttpStatusCode.BadRequest, context.Exception.Message);
+                exception = new MyException(0, "خطای ناشناخته");
+            }
+            else
+            {
+
+                exception = new MyException(context.Exception.Message, context.Exception.InnerException);
             }
 
             if (exception.Error != null && string.IsNullOrEmpty(exception.Error.Description) == false)

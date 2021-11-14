@@ -31,6 +31,14 @@ namespace ZarvanOrder
             Helpers.JWTTokenManager.configuration = Configuration;
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddMicrosoftIdentityWebApi(Configuration.GetSection("AzureAd"));
+            services.AddCors(options =>
+            {
+                options.AddPolicy("ZarvanOrder", builder => builder
+                    .SetIsOriginAllowed((host) => true)
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials());
+            });
             services.AddSwagger();
             services.MyIdentity();
             services.AddAutoMapperConfig();
@@ -70,7 +78,15 @@ namespace ZarvanOrder
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            app.Use((context, next) =>
+            {
+                context.Response.Headers["Access-Control-Allow-Origin"] = "*";
+                context.Response.Headers["Access-Control-Allow-Methods"] = "*";
+                context.Response.Headers["Access-Control-Allow-Headers"] = "*";
+                context.Response.Headers["Access-Control-Max-Age"] = "86400";
+                return next.Invoke();
+            });
+            app.UseCors("ZarvanOrder");
             app.UseAuthentication();
             app.UseAuthorization();
 
