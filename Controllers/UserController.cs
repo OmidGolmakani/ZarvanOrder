@@ -29,7 +29,7 @@ namespace ZarvanOrder.Controllers
             return Ok();
 
         }
-        [HttpPost("Delete")]
+        [HttpDelete("Delete")]
         public async Task<IActionResult> Delete([FromForm] DeleteUserRequest request)
         {
             await _userService.Delete(request);
@@ -63,6 +63,7 @@ namespace ZarvanOrder.Controllers
             return CreatedAtAction(nameof(Get), new { id = result.Id }, result);
 
         }
+        [Microsoft.AspNetCore.Cors.EnableCors("ZarvanOrder")]
         [HttpPut("Put")]
         public async Task<IActionResult> Put([FromForm] EditUserRequest request)
         {

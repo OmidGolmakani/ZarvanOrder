@@ -17,6 +17,7 @@ namespace ZarvanOrder
     {
         public IConfiguration Configuration { get; }
         public IWebHostEnvironment Env { get; }
+        readonly string zarvanOrigins = "ZarvanOrder";
 
         public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
@@ -28,12 +29,13 @@ namespace ZarvanOrder
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
             Helpers.JWTTokenManager.configuration = Configuration;
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddMicrosoftIdentityWebApi(Configuration.GetSection("AzureAd"));
             services.AddCors(options =>
             {
-                options.AddPolicy("ZarvanOrder", builder => builder
+                options.AddPolicy(zarvanOrigins, builder => builder
                     .SetIsOriginAllowed((host) => true)
                     .AllowAnyMethod()
                     .AllowAnyHeader()
@@ -65,7 +67,7 @@ namespace ZarvanOrder
         {
             if (env.IsDevelopment())
             {
-               
+
                 //app.ConfigureExceptionHandler(logger);
             }
             else
@@ -78,16 +80,8 @@ namespace ZarvanOrder
             app.UseHttpsRedirection();
 
             app.UseRouting();
-            app.Use((context, next) =>
-            {
-                context.Response.Headers["Access-Control-Allow-Origin"] = "*";
-                context.Response.Headers["Access-Control-Allow-Methods"] = "*";
-                context.Response.Headers["Access-Control-Allow-Headers"] = "*";
-                context.Response.Headers["Access-Control-Max-Age"] = "86400";
-                return next.Invoke();
-            });
-            app.UseCors("ZarvanOrder");
-            app.UseAuthentication();
+            app.UseCors(zarvanOrigins);
+            //app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
