@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
+using ZarvanOrder.CustomException;
 using ZarvanOrder.Data.DbContext;
 using ZarvanOrder.Interfaces.Repositores;
 

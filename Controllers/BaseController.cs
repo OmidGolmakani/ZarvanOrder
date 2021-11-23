@@ -8,11 +8,11 @@ using ZarvanOrder.Filters;
 
 namespace ZarvanOrder.Controllers
 {
-    //[Microsoft.AspNetCore.Cors.EnableCors("ZarvanOrder")]
+    //[Microsoft.AspNetCore.Cors.DisableCors()]
     [Route("api/[controller]")]
-    [Produces(typeof(JsonResult))]
+    //[Produces(typeof(JsonResult))]
     [ApiController]
-    [CustomAuthorizationFilter]
+    //[CustomAuthorizationFilter]
     public class BaseController : ControllerBase
     {
     }

@@ -67,7 +67,9 @@ namespace ZarvanOrder.Services.Data
 
         public async Task Delete(DeleteUserRequest request)
         {
-            var entity = _mapper.Map<Model.Entites.User>(request);
+
+            Model.Entites.User entity = await _userRepository.GetById(_mapper.Map<GetUserRequest>(request));
+            _mapper.Map<DeleteUserRequest, Model.Entites.User>(request, entity);
             entity.LockoutEnabled = true;
             entity.LockoutEnd = DateTimeOffset.MaxValue;
             _userRepository.Delete(entity);

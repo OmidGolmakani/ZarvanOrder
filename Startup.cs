@@ -9,7 +9,6 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Identity.Web;
 using ZarvanOrder.Extensions.DependencyRegistration;
 using ZarvanOrder.Filters;
-using ZarvanOrder.Middleware;
 
 namespace ZarvanOrder
 {
@@ -36,12 +35,14 @@ namespace ZarvanOrder
             services.AddCors(options =>
             {
                 options.AddPolicy(zarvanOrigins, builder => builder
-                    .SetIsOriginAllowed((host) => true)
-                    .AllowAnyMethod()
-                    .AllowAnyHeader()
-                    .AllowCredentials());
+                    //.SetIsOriginAllowed((host) => true)
+                    //.AllowAnyMethod()
+                    //.AllowAnyHeader()
+                    //.AllowCredentials()
+                    .WithOrigins("https://localhost:5001")
+                    );
             });
-            services.AddSwagger();
+            services.AddSwagger(Env);
             services.MyIdentity();
             services.AddAutoMapperConfig();
             services.AddRepositores();

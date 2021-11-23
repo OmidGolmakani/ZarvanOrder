@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ namespace ZarvanOrder.Extensions.DependencyRegistration
 {
     internal static class Swagger
     {
-        internal static IServiceCollection AddSwagger(this IServiceCollection services)
+        internal static IServiceCollection AddSwagger(this IServiceCollection services, IWebHostEnvironment env)
         {
             services.AddSwaggerGen(c =>
             {

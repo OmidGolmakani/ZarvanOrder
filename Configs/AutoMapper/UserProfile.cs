@@ -20,6 +20,7 @@ namespace ZarvanOrder.Configs.AutoMapper
             CreateMap<Model.Dtos.Requests.Users.UniqueUserValidationRequst, Model.Entites.User>().ReverseMap();
             CreateMap<Model.Dtos.Requests.Users.GetUserRequest, Model.Entites.User>().ReverseMap();
             CreateMap<Model.Dtos.Requests.Users.GetUsersRequest, Model.Entites.User>().ReverseMap();
+            CreateMap<Model.Dtos.Requests.Users.GetUserRequest, Model.Dtos.Requests.Users.DeleteUserRequest>().ReverseMap();
             CreateMap<Model.Dtos.Requests.Users.EditUserRequest, Model.Dtos.Requests.Users.GetUserRequest>();
             CreateMap<Model.Dtos.Requests.Users.EditUserRequest, Model.Dtos.Requests.Users.GetUsersRequest>();
         }

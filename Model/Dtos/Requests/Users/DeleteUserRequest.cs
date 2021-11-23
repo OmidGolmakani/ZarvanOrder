@@ -10,5 +10,6 @@ namespace ZarvanOrder.Model.Dtos.Requests.Users
     public class DeleteUserRequest : Bases.DeleteRequest
     {
         public long Id { get; set; }
+        public string ReasonDeactivation { get; set; }
     }
 }

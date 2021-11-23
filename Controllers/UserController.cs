@@ -29,6 +29,7 @@ namespace ZarvanOrder.Controllers
             return Ok();
 
         }
+        [Microsoft.AspNetCore.Cors.EnableCors("ZarvanOrder")]
         [HttpDelete("Delete")]
         public async Task<IActionResult> Delete([FromForm] DeleteUserRequest request)
         {
