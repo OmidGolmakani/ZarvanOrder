@@ -28,7 +28,7 @@ namespace ZarvanOrder.Filters
                     exception = (MyException)context.Exception;
                 }
             }
-            if (context.Exception.GetType() == typeof(FluentValidation.ValidationException))
+            else if (context.Exception.GetType() == typeof(FluentValidation.ValidationException))
             {
                 exception = new MyException(0, "خطای ناشناخته");
             }

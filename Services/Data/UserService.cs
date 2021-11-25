@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ZarvanOrder.CustomException;
 using ZarvanOrder.Interfaces.DataServices;
 using ZarvanOrder.Interfaces.Repositores;
 using ZarvanOrder.Model.Dtos.Requests.Users;
@@ -69,6 +70,8 @@ namespace ZarvanOrder.Services.Data
         {
 
             Model.Entites.User entity = await _userRepository.GetById(_mapper.Map<GetUserRequest>(request));
+            if (entity == null) 
+                throw new MyException(System.Net.HttpStatusCode.NotFound, Model.Messages.General.UserNotFound);
             _mapper.Map<DeleteUserRequest, Model.Entites.User>(request, entity);
             entity.LockoutEnabled = true;
             entity.LockoutEnd = DateTimeOffset.MaxValue;

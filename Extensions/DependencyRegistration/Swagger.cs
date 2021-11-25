@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,12 @@ namespace ZarvanOrder.Extensions.DependencyRegistration
         {
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "ZarvanOrder", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "ZarvanOrder",
+                    Version = "v1",
+                    Description =env.IsDevelopment()==true ? "Development Mode" :"Product Mode"
+                });
                 c.OperationFilter<SwaggerHeaderParameters>();
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {

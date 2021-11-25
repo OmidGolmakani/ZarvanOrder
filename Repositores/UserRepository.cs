@@ -75,8 +75,8 @@ namespace ZarvanOrder.Repositores
         public async Task<SigninResponse> SigninAsync(LoginRequst requst)
         {
             var entity = await _userManager.FindByNameAsync(requst.UserName);
+            if (entity == null) throw new MyException((int)HttpStatusCode.NotFound, Model.Messages.General.UserNotFound);
             var model = _mapper.Map<UserResponse>(entity);
-            if (model == null) throw new MyException((int)HttpStatusCode.NotFound, Model.Messages.General.UserNotFound);
             SignInResult result = await _signInManager.PasswordSignInAsync(requst.UserName, requst.Password, requst.isPersistent, false);
             if (result.Succeeded == false)
             {

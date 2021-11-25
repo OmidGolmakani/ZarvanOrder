@@ -17,6 +17,11 @@ namespace ZarvanOrder.CustomException
             Error.Code = code;
             Error.Description = message;
         }
+        internal MyException(System.Net.HttpStatusCode status, string message) : base(message)
+        {
+            Error.Code = (int)status;
+            Error.Description = message;
+        }
         internal MyException(string message)
             : base(message)
         {
