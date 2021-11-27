@@ -21,27 +21,27 @@ namespace ZarvanOrder.Configs.Swagger
             if (operation.Parameters == null)
                 operation.Parameters = new List<OpenApiParameter>();
 
-            if (_env.IsDevelopment() ==false &&  IsMethodWithHttpGetAttribute(context))
+            if (_env.IsDevelopment() == false && IsMethodWithHttpGetAttribute(context))
             {
                 operation.Parameters.Add(new OpenApiParameter
                 {
                     Name = "Access-Control-Allow-Origin",
                     In = ParameterLocation.Header,
-                    Description = "Please Send '*'",
-                    Required = false
+                    Description = "",
+                    Required = true
                 });
                 operation.Parameters.Add(new OpenApiParameter
                 {
                     Name = "Access-Control-Allow-Credentials",
                     In = ParameterLocation.Header,
                     Description = "Please Send 'True'",
-                    Required = false
+                    Required = true
                 });
             }
         }
         private bool IsMethodWithHttpGetAttribute(OperationFilterContext context)
         {
-            return context.MethodInfo.CustomAttributes.Any(attribute => 
+            return context.MethodInfo.CustomAttributes.Any(attribute =>
             attribute.AttributeType == typeof(HttpDeleteAttribute) ||
             attribute.AttributeType == typeof(HttpPutAttribute) ||
             attribute.AttributeType == typeof(HttpPatchAttribute));
