@@ -127,7 +127,9 @@ namespace ZarvanOrder.Services.Data
 
         public async Task<UserResponse> Update(EditUserRequest request)
         {
-            Model.Entites.User entity = new Model.Entites.User();
+            Model.Entites.User entity = await _userRepository.GetById(_mapper.Map<GetUserRequest>(request));
+            if (entity == null)
+                throw new MyException(System.Net.HttpStatusCode.NotFound, Model.Messages.General.UserNotFound);
             _mapper.Map<EditUserRequest, Model.Entites.User>(request, entity);
             _userRepository.Update(entity);
             var model = new UserResponse();

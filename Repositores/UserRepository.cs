@@ -1,16 +1,12 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 using ZarvanOrder.CustomException;
 using ZarvanOrder.Data.DbContext;
-using ZarvanOrder.Extensions.Other;
 using ZarvanOrder.Interfaces.Repositores;
 using ZarvanOrder.Model.Dtos.Requests.Users;
 using ZarvanOrder.Model.Dtos.Responses.Users;
@@ -110,7 +106,8 @@ namespace ZarvanOrder.Repositores
         }
         public override Model.Entites.User Update(Model.Entites.User entity)
         {
-            entity = _userManager.FindByIdAsync(entity.Id.ToString()).Result;
+
+            DbSet.Attach(entity);
             var Result = _userManager.UpdateAsync(entity).Result;
             if (Result.Succeeded)
             {
