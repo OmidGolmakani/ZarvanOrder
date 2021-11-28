@@ -27,14 +27,12 @@ namespace ZarvanOrder.Configs.Swagger
                 {
                     Name = "Access-Control-Allow-Origin",
                     In = ParameterLocation.Header,
-                    Description = "",
                     Required = true
                 });
                 operation.Parameters.Add(new OpenApiParameter
                 {
                     Name = "Access-Control-Allow-Credentials",
                     In = ParameterLocation.Header,
-                    Description = "Please Send 'True'",
                     Required = true
                 });
             }

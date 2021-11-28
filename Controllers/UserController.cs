@@ -71,7 +71,7 @@ namespace ZarvanOrder.Controllers
             return CreatedAtAction(nameof(Get), new { id = result.Id }, result);
         }
         [HttpPost("Signin")]
-        public async Task<IActionResult> SigninAsync(LoginRequst requst)
+        public async Task<IActionResult> SigninAsync([FromForm] LoginRequst requst)
         {
             return Ok(await _userService.SignInAsync(requst));
         }
