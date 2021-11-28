@@ -6,10 +6,14 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.DependencyInjection;
 using System.Linq;
 using System.Threading.Tasks;
+using ZarvanOrder.CustomException;
+using ZarvanOrder.Helpers;
+using ZarvanOrder.Interfaces.DataServices;
+using ZarvanOrder.Model.Dtos.Requests.Users;
 
 namespace ZarvanOrder.Filters
 {
-    public class CustomAuthorizationFilter : ActionFilterAttribute, IAllowAnonymous 
+    public class CustomAuthorizationFilter : ActionFilterAttribute, IAllowAnonymous
     {
 
         public CustomAuthorizationFilter()
@@ -30,109 +34,109 @@ namespace ZarvanOrder.Filters
             {
                 return;
             }
-            //ErrorResponse Err = null;
-            //bool hasAllowAnonymous = context.ActionDescriptor.EndpointMetadata
-            //                    .Any(em => em.GetType() == typeof(AllowAnonymousAttribute));
-            //if (!hasAllowAnonymous)
-            //{
-            //    var Result = new JsonResult(new ErrorResponse());
-            //    Result.ContentType = "application/json";
-            //    if (context.HttpContext.Request.Headers["Authorization"].ToString().StartsWith("Bearer") == false)
-            //    {
-            //        context.HttpContext.Response.StatusCode = (int)System.Net.HttpStatusCode.Unauthorized;
-            //        Err = new ErrorResponse()
-            //        {
-            //            Message = "توکن ارسال نشده است",
-            //            StatusCode = context.HttpContext.Response.StatusCode
-            //        };
+            ErrorResponse Err = null;
+            bool hasAllowAnonymous = context.ActionDescriptor.EndpointMetadata
+                                .Any(em => em.GetType() == typeof(AllowAnonymousAttribute));
+            if (!hasAllowAnonymous)
+            {
+                var Result = new JsonResult(new ErrorResponse());
+                Result.ContentType = "application/json";
+                if (context.HttpContext.Request.Headers["Authorization"].ToString().StartsWith("Bearer") == false)
+                {
+                    context.HttpContext.Response.StatusCode = (int)System.Net.HttpStatusCode.Unauthorized;
+                    Err = new ErrorResponse()
+                    {
+                        Description = "توکن ارسال نشده است",
+                        Code = context.HttpContext.Response.StatusCode
+                    };
 
-            //        Result.StatusCode = (int)System.Net.HttpStatusCode.Unauthorized;
-            //        Result.Value = Err;
-            //        context.Result = Result;
-            //        return;
-            //    }
-            //    var token = context.HttpContext.Request.Headers["Authorization"].ToString();
-            //    if (token == "")
-            //    {
-            //        context.HttpContext.Response.StatusCode = (int)System.Net.HttpStatusCode.Unauthorized;
-            //        Err = new ErrorResponse()
-            //        {
-            //            Message = "توکن ارسال نشده است",
-            //            StatusCode = context.HttpContext.Response.StatusCode
-            //        };
+                    Result.StatusCode = (int)System.Net.HttpStatusCode.Unauthorized;
+                    Result.Value = Err;
+                    context.Result = Result;
+                    return;
+                }
+                var token = context.HttpContext.Request.Headers["Authorization"].ToString();
+                if (token == "")
+                {
+                    context.HttpContext.Response.StatusCode = (int)System.Net.HttpStatusCode.Unauthorized;
+                    Err = new ErrorResponse()
+                    {
+                        Description = "توکن ارسال نشده است",
+                        Code = context.HttpContext.Response.StatusCode
+                    };
 
-            //        Result.StatusCode = (int)System.Net.HttpStatusCode.Unauthorized;
-            //        Result.Value = Err;
-            //        context.Result = Result;
-            //        return;
-            //    }
-            //    token = token.Substring(6, token.Length - 6).Trim();
+                    Result.StatusCode = (int)System.Net.HttpStatusCode.Unauthorized;
+                    Result.Value = Err;
+                    context.Result = Result;
+                    return;
+                }
+                token = token.Substring(6, token.Length - 6).Trim();
 
 
-            //    var dbContext = context.HttpContext.RequestServices.GetRequiredService<AppDbContext>();
 
-            //    var User = JWTTokenManager.ValidateToken(token, dbContext);
-            //    if (User == null)
-            //    {
-            //        var AccountService = context.HttpContext.RequestServices.GetRequiredService<IUserService>();
-            //        AccountService.SignOut();
-            //        context.HttpContext.Response.StatusCode = (int)System.Net.HttpStatusCode.Unauthorized;
-            //        Err = new ErrorResponse()
-            //        {
-            //            Message = "توکن ارسال شده نا معتبر است",
-            //            StatusCode = context.HttpContext.Response.StatusCode
-            //        };
-            //        Result.Value = Err;
-            //        Result.StatusCode = context.HttpContext.Response.StatusCode;
-            //        context.Result = Result;
-            //        return;
-            //    }
-            //    bool IsAdmin = true;
-            //    //IsAdmin = true ? (from u in dbContext.Users
-            //    //                  join ur in dbContext.UserRoles
-            //    //                  on u.Id equals ur.UserId
-            //    //                  join r in dbContext.Roles
-            //    //                  on ur.RoleId equals r.Id
-            //    //                  where u.UserName == User && r.Name == "Administrator"
-            //    //                  select 1).Count() != 0 : false;
-            //    if (IsAdmin == false)
-            //    {
-            //        var Route = context.RouteData;
-            //        string CurrentController = Route.Values["Controller"].ToString();
-            //        string CurrentAction = Route.Values["Action"].ToString();
-            //        string Url = string.Format("/api/{0}/{1}", CurrentController, CurrentAction);
-            //        var p = dbContext.RolePermissions.FirstOrDefault(x => x.Url == Url);
-            //        if (p == null)
-            //        {
-            //            context.HttpContext.Response.StatusCode = (int)System.Net.HttpStatusCode.Unauthorized;
-            //            Err = new ErrorResponse()
-            //            {
-            //                Message = "دسترسی شما به این آدرس وجود ندارد",
-            //                StatusCode = context.HttpContext.Response.StatusCode
-            //            };
-            //            Result.Value = Err;
-            //            Result.StatusCode = context.HttpContext.Response.StatusCode;
-            //            context.Result = Result;
-            //            return;
-            //        }
-            //        p.Id = 0;
-            //        if ((JWTTokenManager.ValidatePermissionToken(p.Token) == null) ||
-            //            (!JWTTokenManager.ValidatePermissionToken(p.Token).Equals(p.Url))
-            //            )
-            //        {
-            //            context.HttpContext.Response.StatusCode = (int)System.Net.HttpStatusCode.Unauthorized;
-            //            Err = new ErrorResponse()
-            //            {
-            //                Message = "دسترسی شما به این آدرس وجود ندارد",
-            //                StatusCode = context.HttpContext.Response.StatusCode
-            //            };
-            //            context.Result = new JsonResult(Err);
-            //            return;
-            //        }
-            //    }
-            //}
+                var userService = context.HttpContext.RequestServices.GetRequiredService<IUserService>();
+                var User = JWTTokenManager.ValidateToken(token, userService.GetsAsync(new GetUsersRequest()).Result);
+                if (User == null)
+                {
+                    userService.SignoutAsync();
+                    context.HttpContext.Response.StatusCode = (int)System.Net.HttpStatusCode.Unauthorized;
+                    Err = new ErrorResponse()
+                    {
+                        Description = Model.Messages.General.Unauthorized,
+                        Code = context.HttpContext.Response.StatusCode
+                    };
+                    Result.Value = Err;
+                    Result.StatusCode = context.HttpContext.Response.StatusCode;
+                    context.Result = Result;
+                    return;
+                }
+                bool IsAdmin = true;
+                //IsAdmin = true ? (from u in dbContext.Users
+                //                  join ur in dbContext.UserRoles
+                //                  on u.Id equals ur.UserId
+                //                  join r in dbContext.Roles
+                //                  on ur.RoleId equals r.Id
+                //                  where u.UserName == User && r.Name == "Administrator"
+                //                  select 1).Count() != 0 : false;
+                //    if (IsAdmin == false)
+                //    {
+                //        var Route = context.RouteData;
+                //        string CurrentController = Route.Values["Controller"].ToString();
+                //        string CurrentAction = Route.Values["Action"].ToString();
+                //        string Url = string.Format("/api/{0}/{1}", CurrentController, CurrentAction);
+                //        var p = dbContext.RolePermissions.FirstOrDefault(x => x.Url == Url);
+                //        if (p == null)
+                //        {
+                //            context.HttpContext.Response.StatusCode = (int)System.Net.HttpStatusCode.Unauthorized;
+                //            Err = new ErrorResponse()
+                //            {
+                //                Description = Model.Messages.General.UnauthorizedURL,
+                //                Code = context.HttpContext.Response.StatusCode
+                //            };
+                //            Result.Value = Err;
+                //            Result.StatusCode = context.HttpContext.Response.StatusCode;
+                //            context.Result = Result;
+                //            return;
+                //        }
+                //        p.Id = 0;
+                //        if ((JWTTokenManager.ValidatePermissionToken(p.Token) == null) ||
+                //            (!JWTTokenManager.ValidatePermissionToken(p.Token).Equals(p.Url))
+                //            )
+                //        {
+                //            context.HttpContext.Response.StatusCode = (int)System.Net.HttpStatusCode.Unauthorized;
+                //            Err = new ErrorResponse()
+                //            {
+                //                Description =Model.Messages.General.UnauthorizedURL,
+                //                Code = context.HttpContext.Response.StatusCode
+                //            };
+                //            context.Result = new JsonResult(Err);
+                //            return;
+                //        }
+                //    }
+            }
             base.OnActionExecuting(context);
         }
+
         public override void OnActionExecuted(ActionExecutedContext context)
         {
             base.OnActionExecuted(context);

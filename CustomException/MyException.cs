@@ -10,7 +10,7 @@ namespace ZarvanOrder.CustomException
     public class MyException : Exception
     {
         internal MyException()
-        { Error = new Error(); }
+        { Error = new ErrorResponse(); }
         internal MyException(int code, string message) :
             base(message)
         {
@@ -35,6 +35,6 @@ namespace ZarvanOrder.CustomException
             this.Error.Code = 0;
             this.Error.Description = message;
         }
-        public Error Error { get; set; } = new Error();
+        public ErrorResponse Error { get; set; } = new ErrorResponse();
     }
 }

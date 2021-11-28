@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ZarvanOrder.CustomException
 {
-    public class Error
+    public class ErrorResponse
     {
         public int Code { get; set; }
         public string Description { get; set; }

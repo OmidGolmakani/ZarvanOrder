@@ -18,7 +18,7 @@ namespace ZarvanOrder.Middleware
             {
                 var exceptionHandlerPathFeature = context.Features.Get<IExceptionHandlerPathFeature>();
                 var ex = exceptionHandlerPathFeature.Error;
-                Error Err = new Error();
+                ErrorResponse Err = new ErrorResponse();
 
                 if (ex.GetType().Equals(typeof(MyException)) == true)
                 {
@@ -32,14 +32,14 @@ namespace ZarvanOrder.Middleware
 
                 else
                 {
-                    Err = new Error()
+                    Err = new ErrorResponse()
                     {
                         Description = "یک خطای ناشناخته رخ داده است.جزئیات خطا به مدیران سایت گزارش داده شد",
                         Code = (int)System.Net.WebExceptionStatus.UnknownError
                     };
                     logger.LogError(ex, ex.Message);
                 }
-                var result = JsonConvert.SerializeObject(new Error() {Code =1,Description ="222" });
+                var result = JsonConvert.SerializeObject(new ErrorResponse() {Code =1,Description ="222" });
                 context.Response.StatusCode = Err.Code.ToInt();
                 context.Response.ContentType = "application/json";
                 await context.Response.WriteAsync(result);

@@ -530,14 +530,14 @@ namespace ZarvanOrder.Extensions.Other
         internal static ZarvanOrder.CustomException.MyException ToJson(this List<FluentValidation.Results.ValidationFailure> x)
         {
             var Result = Newtonsoft.Json.JsonConvert.SerializeObject((from e in x
-                                                                      select new ZarvanOrder.CustomException.Error()
+                                                                      select new ZarvanOrder.CustomException.ErrorResponse()
                                                                       {
                                                                           Code = e.ErrorCode.ToInt(),
                                                                           Description = e.ErrorMessage
                                                                       }).ToList());
             return new CustomException.MyException(Result);
         }
-        internal static ZarvanOrder.CustomException.MyException ToJson(this CustomException.MyException exception, CustomException.Error error)
+        internal static ZarvanOrder.CustomException.MyException ToJson(this CustomException.MyException exception, CustomException.ErrorResponse error)
         {
             return new CustomException.MyException(Newtonsoft.Json.JsonConvert.SerializeObject(error));
         }

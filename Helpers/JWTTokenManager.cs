@@ -8,6 +8,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
+using ZarvanOrder.CustomException;
 using ZarvanOrder.Data.DbContext;
 using ZarvanOrder.Extensions.Other;
 using ZarvanOrder.Model.Dtos.Responses.Authentications;
@@ -95,7 +96,7 @@ namespace ZarvanOrder.Helpers
                 ClaimsPrincipal principal = tokenHandler.ValidateToken(token, parameters, out securityToken);
                 return principal;
             }
-            catch (Exception)
+            catch (MyException)
             {
                 return null;
             }
@@ -120,7 +121,7 @@ namespace ZarvanOrder.Helpers
                 ClaimsPrincipal principal = tokenHandler.ValidateToken(token, parameters, out securityToken);
                 return principal;
             }
-            catch (Exception)
+            catch (MyException)
             {
                 return null;
             }
@@ -137,7 +138,7 @@ namespace ZarvanOrder.Helpers
                 {
                     identity = (ClaimsIdentity)principal.Identity;
                 }
-                catch (NullReferenceException)
+                catch (MyException)
                 {
                     return null;
                 }
@@ -146,12 +147,12 @@ namespace ZarvanOrder.Helpers
                 Claim usernameClaim = identity.FindFirst("Url");
                 return usernameClaim.Value;
             }
-            catch (Exception ex)
+            catch (MyException ex)
             {
-                throw new Exception("ValidatePermissionToken", ex);
+                throw new MyException("ValidatePermissionToken", ex);
             }
         }
-        public static string ValidateToken(string token, AppDbContext _dbContext)
+        public static string ValidateToken(string token, Model.Dtos.Responses.Pageing.ListResponse<UserResponse> user)
         {
             try
             {
@@ -164,22 +165,17 @@ namespace ZarvanOrder.Helpers
                 {
                     identity = (ClaimsIdentity)principal.Identity;
                 }
-                catch (NullReferenceException)
+                catch (MyException)
                 {
                     return null;
                 }
                 long Id = identity.FindFirst(ClaimTypes.NameIdentifier).Value.ToLong();
-                string UserName = identity.FindFirst(ClaimTypes.Name).Value;
-                string Phone = identity.FindFirst(ClaimTypes.MobilePhone).Value;
-                string Email = identity.FindFirst(ClaimTypes.Email).Value;
-                var User = _dbContext.Users.FirstOrDefault(x =>
-                                                           x.Id == Id &&
-                                                           x.UserName == UserName &&
-                                                           x.PhoneNumber == Phone &&
-                                                           x.Email == (Email != "" ? Email : null));
-                if (User == null)
+                string userName = identity.FindFirst(ClaimTypes.Name).Value;
+                string phone = identity.FindFirst(ClaimTypes.MobilePhone).Value;
+                string email = identity.FindFirst(ClaimTypes.Email).Value;
+                if (user.Items.FirstOrDefault(u => u.Id != Id || u.UserName != userName || u.PhoneNumber != phone || u.Email != email) == null)
                 {
-                    throw new Exception("توکن ارسال شده نامعتبر است");
+                    throw new MyException(System.Net.HttpStatusCode.Unauthorized, "توکن ارسال شده نامعتبر است");
                 }
 
 
@@ -187,7 +183,7 @@ namespace ZarvanOrder.Helpers
                 username = usernameClaim.Value;
                 return username;
             }
-            catch (Exception ex)
+            catch (MyException ex)
             {
                 throw new Exception("ValidateToken", ex);
             }
@@ -215,14 +211,14 @@ namespace ZarvanOrder.Helpers
                 {
                     identity = (ClaimsIdentity)principal.Identity;
                 }
-                catch (NullReferenceException)
+                catch (MyException)
                 {
                     return 0;
                 }
                 return identity.FindFirst(ClaimTypes.NameIdentifier).Value.ToLong();
 
             }
-            catch (Exception)
+            catch (MyException)
             {
                 throw;
             }
@@ -249,14 +245,14 @@ namespace ZarvanOrder.Helpers
                 {
                     identity = (ClaimsIdentity)principal.Identity;
                 }
-                catch (NullReferenceException)
+                catch (MyException)
                 {
                     return 0;
                 }
                 return identity.FindFirst(ClaimTypes.NameIdentifier).Value.ToLong();
 
             }
-            catch (Exception)
+            catch (MyException)
             {
                 throw;
             }
