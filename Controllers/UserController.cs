@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -56,6 +57,7 @@ namespace ZarvanOrder.Controllers
         {
             return Ok(await _userService.GetsAsync(request));
         }
+        [AllowAnonymous]
         [HttpPost("Post")]
         public async Task<IActionResult> Post([FromForm] AddUserRequest request)
         {
@@ -70,6 +72,7 @@ namespace ZarvanOrder.Controllers
             var result = await _userService.Update(request);
             return CreatedAtAction(nameof(Get), new { id = result.Id }, result);
         }
+        [AllowAnonymous]
         [HttpPost("Signin")]
         public async Task<IActionResult> SigninAsync([FromForm] LoginRequst requst)
         {

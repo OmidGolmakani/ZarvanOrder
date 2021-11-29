@@ -86,7 +86,7 @@ namespace ZarvanOrder.Services.Data
 
         public async Task<ListResponse<UserResponse>> GetsAsync(GetUsersRequest request)
         {
-            var items = _mapper.Map<IEnumerable<UserResponse>>(await _userRepository.Get(request));
+            var items = _mapper.Map<List<UserResponse>>(await _userRepository.Get(request));
             return new ListResponse<UserResponse>() { Items = items, Total = items.Count() };
         }
 

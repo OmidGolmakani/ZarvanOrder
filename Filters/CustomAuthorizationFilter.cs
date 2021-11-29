@@ -46,14 +46,11 @@ namespace ZarvanOrder.Filters
                     context.HttpContext.Response.StatusCode = (int)System.Net.HttpStatusCode.Unauthorized;
                     Err = new ErrorResponse()
                     {
-                        Description = "توکن ارسال نشده است",
+                        Description =Model.Messages.General.Unauthorized,
                         Code = context.HttpContext.Response.StatusCode
                     };
 
-                    Result.StatusCode = (int)System.Net.HttpStatusCode.Unauthorized;
-                    Result.Value = Err;
-                    context.Result = Result;
-                    return;
+                    throw new MyException(context.HttpContext.Response.StatusCode, Err.Description);
                 }
                 var token = context.HttpContext.Request.Headers["Authorization"].ToString();
                 if (token == "")
@@ -61,14 +58,12 @@ namespace ZarvanOrder.Filters
                     context.HttpContext.Response.StatusCode = (int)System.Net.HttpStatusCode.Unauthorized;
                     Err = new ErrorResponse()
                     {
-                        Description = "توکن ارسال نشده است",
+                        Description = Model.Messages.General.Unauthorized,
                         Code = context.HttpContext.Response.StatusCode
                     };
 
                     Result.StatusCode = (int)System.Net.HttpStatusCode.Unauthorized;
-                    Result.Value = Err;
-                    context.Result = Result;
-                    return;
+                    throw new MyException(context.HttpContext.Response.StatusCode, Err.Description);
                 }
                 token = token.Substring(6, token.Length - 6).Trim();
 
@@ -85,10 +80,7 @@ namespace ZarvanOrder.Filters
                         Description = Model.Messages.General.Unauthorized,
                         Code = context.HttpContext.Response.StatusCode
                     };
-                    Result.Value = Err;
-                    Result.StatusCode = context.HttpContext.Response.StatusCode;
-                    context.Result = Result;
-                    return;
+                    throw new MyException(context.HttpContext.Response.StatusCode, Err.Description);
                 }
                 bool IsAdmin = true;
                 //IsAdmin = true ? (from u in dbContext.Users
