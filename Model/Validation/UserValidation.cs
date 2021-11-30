@@ -22,7 +22,8 @@ namespace ZarvanOrder.Model.Validation
             RuleFor(p => p.Name).NotNull().WithMessage("نام اجباری می باشد");
             RuleFor(p => p.Family).NotNull().WithMessage("نام خانوادگی اجباری می باشد");
             RuleFor(p => p.UserName).NotNull().WithMessage("نام کاربری اجباری می باشد");
-            RuleFor(p => p.PasswordHash).NotNull().WithMessage("رمز عبور اجباری می باشد");
+            RuleFor(p => p.PasswordHash).NotNull().WithMessage("رمز عبور اجباری می باشد")
+                                        .MinimumLength(6).WithMessage("رمز عبور باید حداقل 6 کاراکتر باشد");
             RuleFor(p => p.PhoneNumber).NotNull().WithMessage("تلفن همراه اجباری می باشد");
             RuleFor(p => p.Email).EmailAddress(FluentValidation.Validators.EmailValidationMode.AspNetCoreCompatible).WithMessage("آدرس ایمیل غیر مجاز می باشد");
             RuleFor(p => p).MustAsync((p, cancellation) => IsUniqueUserNameAsync(p)).WithMessage("نام کاربری تکراری می باشد");

@@ -79,7 +79,7 @@ namespace ZarvanOrder.Controllers
             return Ok(await _userService.SignInAsync(requst));
         }
         [HttpPost("Signout")]
-        public async Task Signout()
+        public async Task SignoutAsync()
         {
             await _userService.SignoutAsync();
         }

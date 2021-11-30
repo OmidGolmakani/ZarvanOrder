@@ -131,6 +131,8 @@ namespace ZarvanOrder.Services.Data
             if (entity == null)
                 throw new MyException(System.Net.HttpStatusCode.NotFound, Model.Messages.General.UserNotFound);
             _mapper.Map<EditUserRequest, Model.Entites.User>(request, entity);
+            UserValidation validator = new UserValidation(this, _mapper);
+            await validator.ValidateAndThrowAsync(entity);
             _userRepository.Update(entity);
             var model = new UserResponse();
             await Task.Delay(0);

@@ -82,7 +82,7 @@ namespace ZarvanOrder.Repositores
                 }
                 else if (entity.PhoneNumberConfirmed)
                 {
-                    throw new MyException((int)HttpStatusCode.BadRequest, "رمز عبور اشتباه می باشد");
+                    throw new MyException((int)HttpStatusCode.OK, "رمز عبور اشتباه می باشد");
                 }
             }
             return new SigninResponse()
@@ -119,22 +119,22 @@ namespace ZarvanOrder.Repositores
         public async Task<bool> IsUniqueUserAsync(UniqueUserValidationRequst requst)
         {
             if (requst.UserName == null) return true;
-            var user = await _userManager.FindByNameAsync(requst.UserName);
-            return user == null ? true : false;
+            var user = await _userManager.Users.Where(u => u.Email == requst.UserName).CountAsync();
+            return user <= 1 ? true : false;
         }
 
         public async Task<bool> IsUniqueEmailAsync(UniqueEmailValodationRequest requst)
         {
             if (requst.Email == null) return true;
-            var user = await _userManager.FindByEmailAsync(requst.Email);
-            return user == null ? true : false;
+            var user = await _userManager.Users.Where(u => u.Email == requst.Email).CountAsync();
+            return user <= 1 ? true : false;
         }
 
         public async Task<bool> IsUniquePhoneNumberAsync(UniquePhoneNumber requst)
         {
             if (requst.PhoneNumber == null) return true;
-            var user = await _userManager.Users.FirstOrDefaultAsync(u => u.PhoneNumber == requst.PhoneNumber);
-            return user == null ? true : false;
+            var user = await _userManager.Users.Where(u => u.PhoneNumber == requst.PhoneNumber).CountAsync();
+            return user <= 1 ? true : false;
         }
     }
 }
