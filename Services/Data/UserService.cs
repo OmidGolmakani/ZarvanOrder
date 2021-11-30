@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using FluentValidation;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -62,7 +63,7 @@ namespace ZarvanOrder.Services.Data
 
         public async Task<int> CountAsync(GetUsersRequest request)
         {
-            var Count = await _userRepository.Get(request);
+            var Count = await _userRepository.Get(request).ToListAsync();
             return Count.Count();
         }
 
@@ -70,7 +71,7 @@ namespace ZarvanOrder.Services.Data
         {
 
             Model.Entites.User entity = await _userRepository.GetById(_mapper.Map<GetUserRequest>(request));
-            if (entity == null) 
+            if (entity == null)
                 throw new MyException(System.Net.HttpStatusCode.NotFound, Model.Messages.General.UserNotFound);
             _mapper.Map<DeleteUserRequest, Model.Entites.User>(request, entity);
             entity.LockoutEnabled = true;
@@ -86,7 +87,8 @@ namespace ZarvanOrder.Services.Data
 
         public async Task<ListResponse<UserResponse>> GetsAsync(GetUsersRequest request)
         {
-            var items = _mapper.Map<List<UserResponse>>(await _userRepository.Get(request));
+            var t = (await _userRepository.Get(request).ToListAsync());
+            var items = _mapper.Map<List<UserResponse>>((await _userRepository.Get(request).ToListAsync()));
             return new ListResponse<UserResponse>() { Items = items, Total = items.Count() };
         }
 

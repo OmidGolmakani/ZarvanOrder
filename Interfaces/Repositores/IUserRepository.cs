@@ -9,7 +9,7 @@ namespace ZarvanOrder.Interfaces.Repositores
     public interface IUserRepository : IRepository<Model.Entites.User>
     {
         Task<Model.Entites.User> GetById(Model.Dtos.Requests.Users.GetUserRequest request, bool includeDeleted = false);
-        Task<IQueryable<Model.Entites.User>> Get(Model.Dtos.Requests.Users.GetUsersRequest request, bool includeDeleted = false);
+        IQueryable<Model.Entites.User> Get(Model.Dtos.Requests.Users.GetUsersRequest request, bool includeDeleted = false);
         Task<SigninResponse> SigninAsync(Model.Dtos.Requests.Users.LoginRequst requst);
         Task<IList<string>> GetRolesAsync(Model.Dtos.Requests.Users.GetUserRequest request);
         Task SignoutAsync();
