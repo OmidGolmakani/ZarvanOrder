@@ -23,7 +23,7 @@
       "nativeDebugging": true
     },
     "ZarvanOrder.API": {
-      "commandName": "Project",
+      "commandName": "IIS",
       "launchBrowser": true,
       "launchUrl": "swagger",
       "environmentVariables": {
