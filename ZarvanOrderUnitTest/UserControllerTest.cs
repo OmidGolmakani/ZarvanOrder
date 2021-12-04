@@ -22,7 +22,8 @@ namespace ZarvanOrderUnitTest
                 ReturnsAsync((UserResponse)null);
             var controller = new UserController(userServiceSetup.Object);
             ///Act
-            var result = await controller.Gets(new GetUsersRequest() {})
+            var Random dotNetTips.Utility.Standard.Tester.RandomData.GenerateCharacter();
+            var result = await controller.Gets(new GetUsersRequest() )
 
             ///Assert
 

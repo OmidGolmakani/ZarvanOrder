@@ -67,6 +67,10 @@
               "target": "Package",
               "version": "[3.0.2, )"
             },
+            "dotNetTips.Utility.Standard.Tester": {
+              "target": "Package",
+              "version": "[2021.5.1, )"
+            },
             "xunit": {
               "target": "Package",
               "version": "[2.4.1, )"
