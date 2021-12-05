@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc;
 using Moq;
 using System;
 using Xunit;
@@ -14,7 +15,7 @@ namespace ZarvanOrderUnitTest
         {
         }
         [Fact]
-        public void GetsAsync_WithUnexistingItem_ReturnNotFound()
+        public async void GetsAsync_WithUnexistingItem_ReturnOK()
         {
             ///Arrage
             var userServiceSetup = new Mock<IUserService>();
@@ -22,11 +23,9 @@ namespace ZarvanOrderUnitTest
                 ReturnsAsync((UserResponse)null);
             var controller = new UserController(userServiceSetup.Object);
             ///Act
-            var Random dotNetTips.Utility.Standard.Tester.RandomData.GenerateCharacter();
-            var result = await controller.Gets(new GetUsersRequest() )
-
+            var result = await controller.Gets(new GetUsersRequest());
             ///Assert
-
+            Assert.IsType<OkObjectResult>(result);
         }
 
     }
