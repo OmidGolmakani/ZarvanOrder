@@ -13,14 +13,7 @@ namespace ZarvanOrder.Data.SchemaDefinitions
     {
         public void Configure(EntityTypeBuilder<Model.Entites.RolePermission> builder)
         {
-            builder.ToTable("RolePermission")
-                .HasKey(p => p.Id);
-            builder.Property(p => p.LastModified);
-            builder.Property(p => p.LastModifiedBy).HasMaxLength(120);
-            builder.Property(p => p.CreatedDate);
-            builder.Property(p => p.CreatedBy).HasMaxLength(120);
-            builder.Property(p => p.DeletedDate);
-            builder.Property(p => p.DeletedBy).HasMaxLength(120);
+            builder.ToTable("RolePermission");
             builder.Property(p => p.RoleId).IsRequired();
             builder.Property(p => p.Token).IsRequired().HasMaxLength(600);
             builder.Property(p => p.Url).IsRequired().HasMaxLength(300);

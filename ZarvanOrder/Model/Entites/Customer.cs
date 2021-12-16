@@ -15,6 +15,6 @@ namespace ZarvanOrder.Model.Entites
         public string Name { get; set; }
         public string Family { get; set; }
         public string CompanyName { get; set; }
-        public decimal MyProperty { get; set; }
+        public decimal Reminded { get; set; }
     }
 }
