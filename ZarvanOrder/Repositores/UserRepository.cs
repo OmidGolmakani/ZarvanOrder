@@ -49,8 +49,8 @@ namespace ZarvanOrder.Repositores
                                      string.IsNullOrEmpty(request.Name) || string.IsNullOrEmpty(u.Name) || u.Name.Contains(request.Name) &&
                                      string.IsNullOrEmpty(request.PhoneNUmber) || string.IsNullOrEmpty(u.PhoneNumber) || u.Name.Contains(request.PhoneNUmber) &&
                                      string.IsNullOrEmpty(request.Email) || string.IsNullOrEmpty(u.Email) || u.Name.Contains(request.Email) &&
-                                     string.IsNullOrEmpty(request.UserName) || u.UserName == request.UserName); 
-                //.Skip(request.PageSize * request.PageIndex).Take(request.PageSize).AsQueryable();
+                                     string.IsNullOrEmpty(request.UserName) || u.UserName == request.UserName) 
+                .Skip(request.PageSize * request.PageIndex).Take(request.PageSize).AsQueryable();
         }
 
         public Task<Model.Entites.User> GetById(GetUserRequest request, bool includeDeleted = false)
