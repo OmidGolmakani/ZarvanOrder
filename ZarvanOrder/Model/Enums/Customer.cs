@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace ZarvanOrder.Model.Enums
 {
@@ -10,7 +6,9 @@ namespace ZarvanOrder.Model.Enums
     {
         internal enum CustomerType : byte
         {
+            [Display(Name ="حقیقی")]
             Person = 1,
+            [Display(Name = "حقوقی")]
             Company = 2
         }
     }
