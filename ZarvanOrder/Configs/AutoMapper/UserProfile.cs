@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace ZarvanOrder.Configs.AutoMapper
 {
-    public partial class AutoMapperProfile : Profile
+    public partial class UserProfile : Profile
     {
-        public AutoMapperProfile()
+        public UserProfile()
         {
             CreateMap<Model.Dtos.Responses.Users.UserResponse, Model.Entites.User>().ReverseMap();
             CreateMap<Model.Dtos.Requests.Users.AddUserRequest, Model.Entites.User>().ReverseMap();
