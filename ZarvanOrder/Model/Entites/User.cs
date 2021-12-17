@@ -37,5 +37,6 @@ namespace ZarvanOrder.Model.Entites
         public bool IsDeleted { get; set; }
         public DateTime? DeletedDate { get; set; }
         public string DeletedBy { get; set; }
+        public ICollection<Customer> Customers { get; set; }
     }
 }
