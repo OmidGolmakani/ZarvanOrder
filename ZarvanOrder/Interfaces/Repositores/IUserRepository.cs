@@ -6,7 +6,7 @@ using ZarvanOrder.Model.Dtos.Responses.Users;
 
 namespace ZarvanOrder.Interfaces.Repositores
 {
-    public interface IUserRepository : IRepository<Model.Entites.User>
+    public interface IUserRepository : IRepository<long,Model.Entites.User>
     {
         Task<Model.Entites.User> GetById(Model.Dtos.Requests.Users.GetUserRequest request, bool includeDeleted = false);
         IQueryable<Model.Entites.User> Get(Model.Dtos.Requests.Users.GetUsersRequest request, bool includeDeleted = false);

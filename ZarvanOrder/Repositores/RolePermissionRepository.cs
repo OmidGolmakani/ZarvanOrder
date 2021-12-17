@@ -8,7 +8,7 @@ using ZarvanOrder.Data.DbContext;
 
 namespace ZarvanOrder.Repositores
 {
-    public class RolePermissionRepository : Repository<Model.Entites.RolePermission>
+    public class RolePermissionRepository : Repository<long, Model.Entites.RolePermission>
     {
         public RolePermissionRepository(DbFactory dbFactory, IMapper mapper) : base(dbFactory, mapper)
         {

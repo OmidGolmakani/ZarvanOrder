@@ -14,7 +14,7 @@ using ZarvanOrder.Model.Entites;
 
 namespace ZarvanOrder.Repositores
 {
-    public class UserRepository : Repository<Model.Entites.User>, IUserRepository
+    public class UserRepository : Repository<long,Model.Entites.User>, IUserRepository
     {
         private readonly DbFactory _dbFactory;
         private readonly UserManager<Model.Entites.User> _userManager;

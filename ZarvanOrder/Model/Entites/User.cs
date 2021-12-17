@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace ZarvanOrder.Model.Entites
 {
-    public class User : IdentityUser<long>, Interfaces.Entites.IAuditEntity, Interfaces.Entites.IDeleteEntity
+    public class User : IdentityUser<long>, Interfaces.Entites.IAuditEntity<long>, Interfaces.Entites.IDeleteEntity
     {
         public User()
         {

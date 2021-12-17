@@ -5,13 +5,15 @@ using System.Linq.Expressions;
 
 namespace ZarvanOrder.Interfaces.Repositores
 {
-    public interface IRepository<T> where T : class
+    public interface IRepository<TIdentity,TEntity> 
+        where TEntity : class
+        where TIdentity : struct
     {
-        T Add(T entity);
-        T Delete(T entity);
-        void DeleteBatch(IEnumerable<T> entities);
-        T Update(T entity);
-        void UpdateBatch(IEnumerable<T> entities);
-        IQueryable<T> List(Expression<Func<T, bool>> expression);
+        TEntity Add(TEntity entity);
+        TEntity Delete(TEntity entity);
+        void DeleteBatch(IEnumerable<TEntity> entities);
+        TEntity Update(TEntity entity);
+        void UpdateBatch(IEnumerable<TEntity> entities);
+        IQueryable<TEntity> List(Expression<Func<TEntity, bool>> expression);
     }
 }

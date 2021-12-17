@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ZarvanOrder.Interfaces.Entites
 {
-    public interface IAuditEntity<TIdentityType>
+    public interface IAuditEntity<TIdentityType> where TIdentityType : struct
     {
         public TIdentityType Id { get; set; }
         DateTime CreatedDate { get; set; }

@@ -8,12 +8,13 @@ using System.Threading.Tasks;
 
 namespace ZarvanOrder.Data.SchemaDefinitions
 {
-    public class BaseProperesConfig<TIdentityType, TEntity> : IEntityTypeConfiguration<TEntity>
-        where TEntity : Interfaces.Entites.IAuditEntity<TIdentityType>
-    {
-        public void Configure(EntityTypeBuilder<TEntity> builder)
-        {
-            builder.Property(p => p.CreatedBy).HasMaxLength(10);
-        }
-    }
+    //public class BaseProperesConfig<TIdentityType, TEntity> : IEntityTypeConfiguration<TEntity>
+    //    where TIdentityType : struct
+    //    where TEntity : Interfaces.Entites.IAuditEntity<TIdentityType>
+    //{
+    //    public void Configure(EntityTypeBuilder<TEntity> builder)
+    //    {
+    //        builder.Property(p => p.CreatedBy).HasMaxLength(10);
+    //    }
+    //}
 }

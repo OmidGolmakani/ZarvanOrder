@@ -3,15 +3,16 @@ using ZarvanOrder.Interfaces.Entites;
 
 namespace ZarvanOrder.Model.Entites
 {
-    public abstract class AuditDeleteEntity<TIdentityType> : DeleteEntity,
-                                                             IAuditEntity<TIdentityType> 
-        where TIdentityType : struct
+    public abstract class AuditDeleteEntity<TIdentity> : 
+        DeleteEntity,
+        IAuditEntity<TIdentity> 
+        where TIdentity : struct
     {
-        public TIdentityType Id { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public string CreatedBy { get; set; }
-        public DateTime? LastModified { get; set; }
-        public string LastModifiedBy { get; set; }
+        public TIdentity Id { get; set; }
+        public virtual DateTime CreatedDate { get; set; }
+        public virtual string CreatedBy { get; set; }
+        public virtual DateTime? LastModified { get; set; }
+        public virtual string LastModifiedBy { get; set; }
 
     }
 }
