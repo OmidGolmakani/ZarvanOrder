@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 namespace ZarvanOrder.Data.SchemaDefinitions
 {
     public class RolePermission :
-        IEntityTypeConfiguration<Model.Entites.RolePermission>
+        BaseProperesConfig<long,Model.Entites.RolePermission>
     {
-        public void Configure(EntityTypeBuilder<Model.Entites.RolePermission> builder)
+        public override void Configure(EntityTypeBuilder<Model.Entites.RolePermission> builder)
         {
             builder.ToTable("RolePermission");
             builder.Property(p => p.RoleId).IsRequired();
@@ -19,6 +19,7 @@ namespace ZarvanOrder.Data.SchemaDefinitions
             builder.Property(p => p.Url).IsRequired().HasMaxLength(300);
             builder.HasOne(p => p.Role).WithMany(p => p.RolePermissions).
                 HasForeignKey(p => p.RoleId).OnDelete(DeleteBehavior.NoAction);
+            base.Configure(builder);
         }
     }
 }
