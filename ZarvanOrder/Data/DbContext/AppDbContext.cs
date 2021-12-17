@@ -26,6 +26,7 @@ namespace ZarvanOrder.Data.DbContext
         {
             modelBuilder.ApplyConfiguration(new SchemaDefinitions.RolePermission());
             modelBuilder.ApplyConfiguration(new SchemaDefinitions.User());
+            modelBuilder.ApplyConfiguration(new SchemaDefinitions.Customer());
 
             base.OnModelCreating(modelBuilder);
             #region Seed

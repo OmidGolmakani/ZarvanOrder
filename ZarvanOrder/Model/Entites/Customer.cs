@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace ZarvanOrder.Model.Entites
 {
-    public class Customer
+    public class Customer:AuditDeleteEntity<long>
     {
-        public long Id { get; set; }
         public long RefId { get; set; }
         public long UserId { get; set; }
         public byte CustomerType { get; set; }

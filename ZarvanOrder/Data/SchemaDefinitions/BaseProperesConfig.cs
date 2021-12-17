@@ -12,7 +12,7 @@ namespace ZarvanOrder.Data.SchemaDefinitions
         where TIdentityType : struct
         where TEntity : Model.Entites.AuditDeleteEntity<TIdentityType>
     {
-        protected virtual void Configure(EntityTypeBuilder<TEntity> builder)
+        public virtual void Configure(EntityTypeBuilder<TEntity> builder)
         {
             builder.HasKey(p => p.Id);
             builder.Property(p => p.LastModified);
