@@ -53,7 +53,7 @@ namespace ZarvanOrder.Repositores
                 .Skip(request.PageSize * request.PageIndex).Take(request.PageSize).AsQueryable();
         }
 
-        public Task<Model.Entites.User> GetById(GetUserRequest request, bool includeDeleted = false)
+        public Task<User> GetById(GetUserRequest request, bool includeDeleted = false)
         {
             return this.DbSet
                  .Where(u => u.Id == request.Id)

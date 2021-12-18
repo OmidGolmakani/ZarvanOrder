@@ -63,8 +63,7 @@ namespace ZarvanOrder.Services.Data
 
         public async Task<int> CountAsync(GetUsersRequest request)
         {
-            var Count = await _userRepository.Get(request).ToListAsync();
-            return Count.Count();
+            
         }
 
         public async Task Delete(DeleteUserRequest request)
