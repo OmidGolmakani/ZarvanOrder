@@ -14,6 +14,7 @@
 *.userprefs
 
 # Build results
+/.vs/ZarvanOrder/DesignTimeBuild/.dtbcache.v2
 [Dd]ebug/
 ZarvanOrderUnitTest/[Bb]in/[Dd]ebug/
 [Dd]ebugPublic/
@@ -27,6 +28,7 @@ bld/
 [Bb]in/
 [Oo]bj/
 [Ll]og/
+.vs/ZarvanOrder/DesignTimeBuild/.dtbcache.v2
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/
