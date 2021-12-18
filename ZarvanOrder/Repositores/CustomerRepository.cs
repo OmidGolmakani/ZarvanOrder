@@ -1,25 +1,51 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ZarvanOrder.Data.DbContext;
 using ZarvanOrder.Interfaces.Repositores;
 using ZarvanOrder.Model.Dtos.Requests.Customers;
 using ZarvanOrder.Model.Entites;
 
 namespace ZarvanOrder.Repositores
 {
-    public class CustomerRepository : ZarvanOrder.Repositores.Repository<long, Model.Entites.Customer>, ICustomerRepository
+    public class CustomerRepository : Repository<long, Customer>, ICustomerRepository
     {
-        public IQueryable<User> Get(GetCustomerRequest request, bool includeDeleted = false)
+        private readonly DbFactory _dbFactory;
+        private readonly IMapper _mapper;
+        public CustomerRepository(DbFactory dbFactory, IMapper mapper) : base(dbFactory, mapper)
         {
-            throw new NotImplementedException();
+            this._dbFactory = dbFactory;
+            this._mapper = mapper;
         }
 
-        public async Task<Customer> GetById(GetCustomerRequest request, bool includeDeleted = false)
+        public IQueryable<Customer> Get(GetCustomersRequest request, bool includeDeleted = false)
         {
-            this.DbSet.FirstOrDefaultAsync(p=> p.)
+            return this
+                 .List(p => (includeDeleted || !p.IsDeleted) &&
+                 (string.IsNullOrEmpty(request.Code) || (!string.IsNullOrEmpty(p.Code)
+                 && p.Code.Contains(request.Code))) &&
+                 (string.IsNullOrEmpty(request.Name) || (!string.IsNullOrEmpty(p.Name)
+                 && p.Name.Contains(request.Name))) &&
+                 (string.IsNullOrEmpty(request.Family) || (!string.IsNullOrEmpty(p.Family)
+                 && p.Family.Contains(request.Family))) &&
+                 (string.IsNullOrEmpty(request.CompanyName) || (!string.IsNullOrEmpty(p.CompanyName)
+                 && p.CompanyName.Contains(request.CompanyName))) &&
+                 (string.IsNullOrEmpty(request.UserName) || (!string.IsNullOrEmpty(p.UserCustomer.UserName)
+                 && p.UserCustomer.UserName.Contains(request.UserName))) &&
+                 p.CustomerType == request.CustomerType
+                 ).Skip(request.PageSize * request.PageIndex).Take(request.PageSize);
+        }
+
+        public Task<Customer> GetById(GetCustomerRequest request, bool includeDeleted = false)
+        {
+            return this.DbSet
+             .Where(c => c.Id == request.Id && (includeDeleted || !c.IsDeleted))
+             .AsNoTracking()
+             .FirstOrDefaultAsync();
         }
     }
 }

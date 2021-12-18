@@ -14,6 +14,9 @@
 *.userprefs
 
 # Build results
+/ZarvanOrderUnitTest/bin/Debug/net5.0/*
+/ZarvanOrderUnitTest/obj/Debug/net5.0/*
+txt.txt
 /.vs/ZarvanOrder/DesignTimeBuild/.dtbcache.v2
 [Dd]ebug/
 ZarvanOrderUnitTest/[Bb]in/[Dd]ebug/

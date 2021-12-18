@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using FluentValidation;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,17 +37,12 @@ namespace ZarvanOrder.Services.Data
             return result;
         }
 
-        public async Task BatchDelete(IEnumerable<GetCustomerRequest> request)
+        public async Task BatchDelete(IEnumerable<DeleteCustomerRequest> request)
         {
             IEnumerable<Customer> entites = null;
-            _mapper.Map<IEnumerable<GetCustomerRequest>, IEnumerable<Customer>>(request, entites);
+            _mapper.Map<IEnumerable<DeleteCustomerRequest>, IEnumerable<Customer>>(request, entites);
             _repository.DeleteBatch(entites);
             await Task.Delay(0);
-        }
-
-        public Task BatchDelete(IEnumerable<DeleteCustomerRequest> request)
-        {
-            throw new NotImplementedException();
         }
 
         public async Task BatchUpdate(IEnumerable<EditCustomerRequest> request)
@@ -57,7 +53,7 @@ namespace ZarvanOrder.Services.Data
             await Task.Delay(0);
         }
 
-        public Task<int> CountAsync(GetCustomersRequest request)
+        public async Task<int> CountAsync(GetCustomersRequest request)
         {
             var Count = await _repository.Get(request).ToListAsync();
             return Count.Count();
@@ -71,19 +67,20 @@ namespace ZarvanOrder.Services.Data
             await Task.Run(() => result);
         }
 
-        public Task<CustomerResponse> GetAsync(GetCustomerRequest request)
+        public async Task<CustomerResponse> GetAsync(GetCustomerRequest request)
         {
-            throw new NotImplementedException();
+            return _mapper.Map<CustomerResponse>(await _repository.GetById(request));
         }
 
-        public Task<ListResponse<CustomerResponse>> GetsAsync(GetCustomersRequest request)
+        public async Task<ListResponse<CustomerResponse>> GetsAsync(GetCustomersRequest request)
         {
-            throw new NotImplementedException();
+            var items = _mapper.Map<List<CustomerResponse>>(await _repository.Get(request).ToListAsync());
+            return new ListResponse<CustomerResponse>() { Items = items, Total = items.Count() };
         }
 
         public Task<bool> IsUniqueCustomerCode(string Code)
         {
-            throw new NotImplementedException();
+            _repository.Get(new GetCustomersRequest() { Code = Code })
         }
 
         public async Task<CustomerResponse> Update(EditCustomerRequest request)

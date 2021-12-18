@@ -63,7 +63,7 @@ namespace ZarvanOrder.Services.Data
 
         public async Task<int> CountAsync(GetUsersRequest request)
         {
-            
+            return await _userRepository.Get(request).CountAsync();
         }
 
         public async Task Delete(DeleteUserRequest request)
@@ -86,7 +86,6 @@ namespace ZarvanOrder.Services.Data
 
         public async Task<ListResponse<UserResponse>> GetsAsync(GetUsersRequest request)
         {
-            var t = (await _userRepository.Get(request).ToListAsync());
             var items = _mapper.Map<List<UserResponse>>((await _userRepository.Get(request).ToListAsync()));
             return new ListResponse<UserResponse>() { Items = items, Total = items.Count() };
         }
