@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ZarvanOrder.CustomException;
 using ZarvanOrder.Interfaces.DataServices;
 using ZarvanOrder.Interfaces.Repositores;
 using ZarvanOrder.Model.Dtos.Requests.Customers;
@@ -61,7 +62,9 @@ namespace ZarvanOrder.Services.Data
 
         public async Task Delete(DeleteCustomerRequest request)
         {
-            Customer entity = new();
+            Customer entity = await _repository.GetById(_mapper.Map<GetCustomerRequest>(request));
+            if (entity == null)
+                throw new MyException(System.Net.HttpStatusCode.NotFound, Model.Messages.General.CustomerNotFound);
             _mapper.Map<DeleteCustomerRequest, Customer>(request, entity);
             var result = _mapper.Map<CustomerResponse>(_repository.Delete(entity));
             await Task.Run(() => result);
@@ -85,7 +88,9 @@ namespace ZarvanOrder.Services.Data
 
         public async Task<CustomerResponse> Update(EditCustomerRequest request)
         {
-            Customer entity = new();
+            Customer entity = await _repository.GetById(_mapper.Map<GetCustomerRequest>(request));
+            if (entity == null)
+                throw new MyException(System.Net.HttpStatusCode.NotFound, Model.Messages.General.CustomerNotFound);
             _mapper.Map<EditCustomerRequest, Customer>(request, entity);
             CustomerValidation validator = new(this);
             await validator.ValidateAndThrowAsync(entity);
