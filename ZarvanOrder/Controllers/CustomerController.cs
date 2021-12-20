@@ -19,35 +19,36 @@ namespace ZarvanOrder.Controllers
         {
             this._customerService = customerService;
         }
-        public async Task<IActionResult> BachDelete(List<DeleteCustomerRequest> request)
+        [HttpDelete("BatchDelete")]
+        public async Task<IActionResult> BachDelete([FromForm] List<DeleteCustomerRequest> request)
         {
             await _customerService.BatchDelete(request);
             return Ok();
         }
-
-        public async Task<IActionResult> Delete(DeleteCustomerRequest request)
+        [HttpDelete("Delete")]
+        public async Task<IActionResult> Delete([FromForm] DeleteCustomerRequest request)
         {
             await _customerService.Delete(request);
             return Ok();
         }
-
-        public async Task<IActionResult> Get(GetCustomerRequest request)
+        [HttpGet("Get")]
+        public async Task<IActionResult> Get([FromQuery] GetCustomerRequest request)
         {
             return Ok(await _customerService.GetAsync(request));
         }
-
-        public async Task<IActionResult> Gets(GetCustomersRequest request)
+        [HttpGet("Gets")]
+        public async Task<IActionResult> Gets([FromQuery] GetCustomersRequest request)
         {
             return Ok(await _customerService.GetsAsync(request));
         }
-
-        public async Task<IActionResult> Post(AddCustomerRequest request)
+        [HttpPost("Post")]
+        public async Task<IActionResult> Post([FromForm] AddCustomerRequest request)
         {
             var result = await _customerService.Add(request);
             return CreatedAtAction(nameof(Get), new { id = result.Id }, result);
         }
-
-        public async Task<IActionResult> Put(EditCustomerRequest request)
+        [HttpPut("Put")]
+        public async Task<IActionResult> Put([FromForm] EditCustomerRequest request)
         {
             var result = await _customerService.Update(request);
             return CreatedAtAction(nameof(Get), new { id = result.Id }, result);
