@@ -80,12 +80,6 @@ namespace ZarvanOrder.Services.Data
             var items = _mapper.Map<List<CustomerResponse>>(await _repository.Get(request).ToListAsync());
             return new ListResponse<CustomerResponse>() { Items = items, Total = items.Count() };
         }
-
-        public Task<bool> IsUniqueCustomerCode(string Code)
-        {
-            _repository.Get(new GetCustomersRequest() { Code = Code })
-        }
-
         public async Task<CustomerResponse> Update(EditCustomerRequest request)
         {
             Customer entity = await _repository.GetById(_mapper.Map<GetCustomerRequest>(request));

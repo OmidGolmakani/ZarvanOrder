@@ -11,7 +11,7 @@ using ZarvanOrder.Services.Data;
 namespace ZarvanOrder.Controllers
 {
     public class CustomerController : BaseController, IController<AddCustomerRequest, EditCustomerRequest, DeleteCustomerRequest>,
-                                                      IGetController<GetCustomerRequest, GetCustomersRequest>,
+                                                      IGetController<GetCustomerRequest, GetCustomersRequest>
     {
         private readonly CustomerService _customerService;
 
