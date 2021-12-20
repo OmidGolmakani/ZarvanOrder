@@ -34,6 +34,7 @@ namespace ZarvanOrder.Extensions.DependencyRegistration
             services.AddScoped<DbFactory>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ICustomerService, CustomerService>();
             return services;
         }
     }
