@@ -21,10 +21,10 @@ namespace ZarvanOrder.Services.Data
     public class CustomerService : ICustomerService
     {
         private readonly ICustomerRepository _repository;
-        private readonly Mapper _mapper;
+        private readonly IMapper _mapper;
 
         public CustomerService(ICustomerRepository repository,
-                               Mapper mapper)
+                               IMapper mapper)
         {
             this._repository = repository;
             this._mapper = mapper;
