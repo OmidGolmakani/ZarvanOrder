@@ -8,6 +8,7 @@ namespace ZarvanOrder.Interfaces.Repositores
 {
     public interface IGetRepository<TGetRequest, TGetsRequest, TResponse>
     {
-
+        Task<TResponse> GetById(TGetRequest request, bool includeDeleted = false);
+        IQueryable<TResponse> Get(TGetsRequest request, bool includeDeleted = false);
     }
 }
