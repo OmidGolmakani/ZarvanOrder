@@ -12,6 +12,7 @@ namespace ZarvanOrder.Model.Entites
         public int RefId { get; set; }
         public int RegionCode { get; set; }
         public string RegionName { get; set; }
+        public byte Level { get; set; }
         public bool Active { get; set; }
         public Region FatherRegion { get; set; }
         public ICollection<Region> ChildRegion { get; set; }

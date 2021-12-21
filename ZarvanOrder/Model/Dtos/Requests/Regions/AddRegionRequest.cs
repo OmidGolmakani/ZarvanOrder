@@ -8,6 +8,11 @@ namespace ZarvanOrder.Model.Dtos.Requests.Regions
 {
     public class AddRegionRequest : Bases.AddRequest
     {
-        
+        public int? RegionFatherId { get; set; }
+        public int RefId { get; set; }
+        public int RegionCode { get; set; }
+        public string RegionName { get; set; }
+        public byte Level { get; set; }
+        public bool Active { get; set; }
     }
 }

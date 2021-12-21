@@ -18,6 +18,7 @@ namespace ZarvanOrder.Data.SchemaDefinitions
             builder.Property(p => p.RegionCode).IsRequired();
             builder.Property(p => p.RegionName).HasMaxLength(60).IsRequired();
             builder.Property(p => p.Active).HasDefaultValueSql("1");
+            builder.Property(p => p.Level).HasDefaultValueSql("1");
             builder.HasOne(p => p.FatherRegion)
                    .WithMany(p => p.ChildRegion)
                    .HasForeignKey(p => p.RegionFatherId)
