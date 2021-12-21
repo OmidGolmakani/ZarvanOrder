@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace ZarvanOrder.Model.Dtos.Requests.Bases
 {
-    public class DeleteRequest : BaseRequest
+    public class DeleteRequest<TIdentity> : BaseRequest
     {
-        
+        public TIdentity Id { get; set; }
     }
 }
