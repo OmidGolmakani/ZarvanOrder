@@ -8,6 +8,6 @@ namespace ZarvanOrder.Model.Dtos.Requests.Bases
 {
     public class DeleteRequest<TIdentity> : BaseRequest
     {
-        public TIdentity Id { get; set; }
+        public virtual TIdentity Id { get; set; }
     }
 }

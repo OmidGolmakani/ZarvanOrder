@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ZarvanOrder.Model.Dtos.Responses.Roles
 {
-    public class RoleResponse : Bases.BaseResponse
+    public class RoleResponse : Bases.BaseResponse<long>
     {
         
     }
