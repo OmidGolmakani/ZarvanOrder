@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace ZarvanOrder.Model.Dtos.Requests.Regions
 {
-    public class GetsRegionRequest
+    public class GetsRegionRequest : Bases.GetsRequest
     {
-        
+
     }
 }

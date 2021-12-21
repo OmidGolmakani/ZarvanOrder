@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ZarvanOrder.Model.Dtos.Requests.Regions
 {
-    public class EditRegionRequest
+    public class EditRegionRequest : Bases.EditRequest
     {
         
     }
