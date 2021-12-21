@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace ZarvanOrder.Model.Dtos.Requests.Customers
 {
-    public class EditCustomerRequest : Bases.EditRequest
+    public class EditCustomerRequest : Bases.EditRequest<long>
     {
-        public long Id { get; set; }
         public long RefId { get; set; }
         public long UserId { get; set; }
         public byte CustomerType { get; set; }
