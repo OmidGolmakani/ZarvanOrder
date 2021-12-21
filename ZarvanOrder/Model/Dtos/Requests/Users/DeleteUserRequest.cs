@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace ZarvanOrder.Model.Dtos.Requests.Users
 {
-    public class DeleteUserRequest : Bases.DeleteRequest
+    public class DeleteUserRequest : Bases.DeleteRequest<long>
     {
-        public long Id { get; set; }
         public string ReasonDeactivation { get; set; }
     }
 }
