@@ -20,7 +20,7 @@ namespace ZarvanOrder.Repositores
             this._mapoper = mapper;
         }
 
-        public IQueryable<Region> Get(GetsRegionRequest request, bool includeDeleted = false)
+        public IQueryable<Region> Get(GetRegionsRequest request, bool includeDeleted = false)
         {
             throw new System.NotImplementedException();
         }
