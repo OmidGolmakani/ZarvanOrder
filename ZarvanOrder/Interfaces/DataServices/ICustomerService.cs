@@ -11,6 +11,5 @@ namespace ZarvanOrder.Interfaces.DataServices
     public interface ICustomerService : IService<AddCustomerRequest, EditCustomerRequest, DeleteCustomerRequest, CustomerResponse>,
                                         IGetService<GetCustomerRequest, GetCustomersRequest, CustomerResponse>
     {
-        Task<bool> IsUniqueCustomerCode(string Code);
     }
 }

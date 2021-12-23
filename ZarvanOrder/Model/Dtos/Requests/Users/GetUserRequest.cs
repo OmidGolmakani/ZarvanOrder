@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace ZarvanOrder.Model.Dtos.Requests.Users
 {
-    public class GetUserRequest:Bases.GetRequest
+    public class GetUserRequest:Bases.GetRequest<long>
     {
-        public long Id { get; set; }
     }
 }

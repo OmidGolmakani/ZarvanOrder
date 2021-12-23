@@ -8,9 +8,8 @@ using System.Threading.Tasks;
 
 namespace ZarvanOrder.Model.Dtos.Requests.Users
 {
-    public class EditUserRequest : Bases.EditRequest
+    public class EditUserRequest : Bases.EditRequest<long>
     {
-        public long Id { get; set; }
         public string Name { get; set; }
         public string Family { get; set; }
         public string UserName { get; set; }

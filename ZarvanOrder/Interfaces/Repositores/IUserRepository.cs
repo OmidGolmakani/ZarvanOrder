@@ -1,22 +1,22 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+using ZarvanOrder.Model.Dtos.Requests.Users;
 using ZarvanOrder.Model.Dtos.Responses.Users;
+using ZarvanOrder.Model.Entites;
 
 namespace ZarvanOrder.Interfaces.Repositores
 {
-    public interface IUserRepository : IRepository<long,Model.Entites.User>
+    public interface IUserRepository : IRepository<long,Model.Entites.User>,
+                                       IGetRepository<GetUserRequest, GetUsersRequest,User>
     {
-        Task<Model.Entites.User> GetById(Model.Dtos.Requests.Users.GetUserRequest request, bool includeDeleted = false);
-        IQueryable<Model.Entites.User> Get(Model.Dtos.Requests.Users.GetUsersRequest request, bool includeDeleted = false);
-        Task<SigninResponse> SigninAsync(Model.Dtos.Requests.Users.LoginRequst requst);
-        Task<IList<string>> GetRolesAsync(Model.Dtos.Requests.Users.GetUserRequest request);
+        Task<SigninResponse> SigninAsync(LoginRequst requst);
+        Task<IList<string>> GetRolesAsync(GetUserRequest request);
         Task SignoutAsync();
-        Task<IdentityResult> AddUserToRoleAsync(Model.Dtos.Requests.Users.GetUserRequest request, string Role);
-        Task<bool> IsUniqueUserAsync(Model.Dtos.Requests.Users.UniqueUserValidationRequst requst);
-        Task<bool> IsUniqueEmailAsync(Model.Dtos.Requests.Users.UniqueEmailValodationRequest requst);
-        Task<bool> IsUniquePhoneNumberAsync(Model.Dtos.Requests.Users.UniquePhoneNumber requst);
+        Task<IdentityResult> AddUserToRoleAsync(GetUserRequest request, string Role);
+        Task<bool> IsUniqueUserAsync(UniqueUserValidationRequst requst);
+        Task<bool> IsUniqueEmailAsync(UniqueEmailValodationRequest requst);
+        Task<bool> IsUniquePhoneNumberAsync(UniquePhoneNumber requst);
 
     }
 }

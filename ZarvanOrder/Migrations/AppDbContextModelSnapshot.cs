@@ -85,7 +85,69 @@ namespace ZarvanOrder.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Customer");
+                    b.ToTable("Customers");
+                });
+
+            modelBuilder.Entity("ZarvanOrder.Model.Entites.Region", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("Active")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValueSql("1");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(120)
+                        .HasColumnType("nvarchar(120)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(120)
+                        .HasColumnType("nvarchar(120)");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("LastModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasMaxLength(120)
+                        .HasColumnType("nvarchar(120)");
+
+                    b.Property<byte>("Level")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("tinyint")
+                        .HasDefaultValueSql("1");
+
+                    b.Property<int>("RefId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RegionCode")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("RegionFatherId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("RegionName")
+                        .IsRequired()
+                        .HasMaxLength(60)
+                        .HasColumnType("nvarchar(60)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RegionFatherId");
+
+                    b.ToTable("Region");
                 });
 
             modelBuilder.Entity("ZarvanOrder.Model.Entites.Role", b =>
@@ -410,6 +472,16 @@ namespace ZarvanOrder.Migrations
                     b.Navigation("UserCustomer");
                 });
 
+            modelBuilder.Entity("ZarvanOrder.Model.Entites.Region", b =>
+                {
+                    b.HasOne("ZarvanOrder.Model.Entites.Region", "FatherRegion")
+                        .WithMany("ChildRegion")
+                        .HasForeignKey("RegionFatherId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.Navigation("FatherRegion");
+                });
+
             modelBuilder.Entity("ZarvanOrder.Model.Entites.RoleClaim", b =>
                 {
                     b.HasOne("ZarvanOrder.Model.Entites.Role", null)
@@ -470,6 +542,11 @@ namespace ZarvanOrder.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("ZarvanOrder.Model.Entites.Region", b =>
+                {
+                    b.Navigation("ChildRegion");
                 });
 
             modelBuilder.Entity("ZarvanOrder.Model.Entites.Role", b =>

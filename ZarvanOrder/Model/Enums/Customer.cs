@@ -2,9 +2,9 @@
 
 namespace ZarvanOrder.Model.Enums
 {
-    internal class Customer
+    public class Customer
     {
-        internal enum CustomerType : byte
+        public enum CustomerType : byte
         {
             [Display(Name ="حقیقی")]
             Person = 1,

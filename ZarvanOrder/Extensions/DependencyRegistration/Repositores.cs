@@ -13,8 +13,10 @@ namespace ZarvanOrder.Extensions.DependencyRegistration
     {
         internal static IServiceCollection AddRepositores(this IServiceCollection services)
         {
-            services.AddScoped(typeof(IRepository< , >), typeof(Repository<,>));
+            services.AddScoped(typeof(IRepository<,>), typeof(Repository<,>));
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<ICustomerRepository, CustomerRepository>();
+            services.AddScoped<IRegionRepository, RegionRepository>();
             return services;
         }
     }

@@ -1,19 +1,10 @@
-﻿using FluentValidation;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ZarvanOrder.Data.DbContext;
 using ZarvanOrder.Interfaces.DataServices;
 using ZarvanOrder.Interfaces.Repositores;
-using ZarvanOrder.Model.Dtos.Requests.Users;
-using ZarvanOrder.Model.Dtos.Responses.Users;
-using ZarvanOrder.Model.Validation;
-using ZarvanOrder.Repositores;
 using ZarvanOrder.Services.Data;
 
 namespace ZarvanOrder.Extensions.DependencyRegistration
@@ -34,6 +25,8 @@ namespace ZarvanOrder.Extensions.DependencyRegistration
             services.AddScoped<DbFactory>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ICustomerService, CustomerService>();
+            services.AddScoped<IRegionService, RegionService>();
             return services;
         }
     }

@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace ZarvanOrder.Model.Dtos.Responses.Customers
 {
-    public class CustomerResponse : Bases.BaseResponse
+    public class CustomerResponse : Bases.BaseResponse<long>
     {
-        public long Id { get; set; }
         public long RefId { get; set; }
         public long UserId { get; set; }
         public string UserFullName { get; set; }

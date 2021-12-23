@@ -23,7 +23,8 @@ namespace ZarvanOrder.Model.Validation
         }
         private async Task<bool> IsUniqeCodeAsync(Entites.Customer request)
         {
-            return await _service.IsUniqueCustomerCode(request.Code);
+            var result = await _service.GetsAsync(new Dtos.Requests.Customers.GetCustomersRequest() { Code = request.Code });
+            return result.Items.Count(p => p.Id != request.Id) != 0 ? false : true;
         }
         private bool IsReqiredCompany(Entites.Customer request)
         {
