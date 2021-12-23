@@ -16,10 +16,10 @@ namespace ZarvanOrder.Extensions.DependencyRegistration
             services.AddEntityFrameworkSqlServer()
                .AddDbContext<AppDbContext>(options =>
                {
-                   options.UseSqlServer(configuration["Data:DefaultConnectionString"],
-                       options => options.MigrationsAssembly(typeof(Startup).Assembly.FullName));
-                   //options.UseSqlServer(configuration["Data:SecondConnectionString"],
+                   //options.UseSqlServer(configuration["Data:DefaultConnectionString"],
                    //    options => options.MigrationsAssembly(typeof(Startup).Assembly.FullName));
+                   options.UseSqlServer(configuration["Data:SecondConnectionString"],
+                       options => options.MigrationsAssembly(typeof(Startup).Assembly.FullName));
                });
             services.AddScoped<Func<AppDbContext>>((provider) => () => provider.GetService<AppDbContext>());
             services.AddScoped<DbFactory>();

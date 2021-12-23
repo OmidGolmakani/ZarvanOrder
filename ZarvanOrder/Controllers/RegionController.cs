@@ -1,10 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using ZarvanOrder.Interfaces.Controllers;
+using ZarvanOrder.Interfaces.DataServices;
 using ZarvanOrder.Model.Dtos.Requests.Regions;
 using ZarvanOrder.Services.Data;
 
@@ -13,9 +11,9 @@ namespace ZarvanOrder.Controllers
     public class RegionController : BaseController, IController<AddRegionRequest, EditRegionRequest, DeleteRegionRequest>,
                                                     IGetController<GetRegionRequest, GetRegionsRequest>
     {
-        private readonly RegionService _RegionService;
+        private readonly IRegionService _RegionService;
 
-        public RegionController(RegionService RegionService)
+        public RegionController(IRegionService RegionService)
         {
             this._RegionService = RegionService;
         }
