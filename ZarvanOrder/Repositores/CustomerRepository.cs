@@ -36,7 +36,7 @@ namespace ZarvanOrder.Repositores
                  && p.CompanyName.Contains(request.CompanyName))) &&
                  (string.IsNullOrEmpty(request.UserName) || (!string.IsNullOrEmpty(p.UserCustomer.UserName)
                  && p.UserCustomer.UserName.Contains(request.UserName))) &&
-                 p.CustomerType == request.CustomerType
+                 p.CustomerType == (byte)request.CustomerType
                  ).Skip(request.PageSize * request.PageIndex).Take(request.PageSize);
         }
 

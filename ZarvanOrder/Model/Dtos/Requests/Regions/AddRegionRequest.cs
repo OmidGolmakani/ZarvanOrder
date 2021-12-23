@@ -12,7 +12,7 @@ namespace ZarvanOrder.Model.Dtos.Requests.Regions
         public int RefId { get; set; }
         public int RegionCode { get; set; }
         public string RegionName { get; set; }
-        public byte Level { get; set; }
+        public Model.Enums.Region.Level Level { get; set; }
         public bool Active { get; set; }
     }
 }

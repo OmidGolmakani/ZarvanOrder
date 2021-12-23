@@ -11,7 +11,7 @@ namespace ZarvanOrder.Model.Dtos.Requests.Customers
         public long RefId { get; set; }
         public long UserId { get; set; }
         public string UserName { get; set; }
-        public byte CustomerType { get; set; }
+        public Model.Enums.Customer.CustomerType CustomerType { get; set; }
         public string Code { get; set; }
         public string Name { get; set; }
         public string Family { get; set; }
