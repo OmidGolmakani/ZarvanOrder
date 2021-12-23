@@ -8,8 +8,7 @@ using ZarvanOrder.Services.Data;
 
 namespace ZarvanOrder.Controllers
 {
-    public class RegionController : BaseController, IController<AddRegionRequest, EditRegionRequest, DeleteRegionRequest>,
-                                                    IGetController<GetRegionRequest, GetRegionsRequest>
+    public class RegionController : BaseController, IRegionController
     {
         private readonly IRegionService _RegionService;
 

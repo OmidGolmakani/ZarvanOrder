@@ -7,8 +7,7 @@ using ZarvanOrder.Model.Dtos.Requests.Customers;
 
 namespace ZarvanOrder.Controllers
 {
-    public class CustomerController : BaseController, IController<AddCustomerRequest, EditCustomerRequest, DeleteCustomerRequest>,
-                                                      IGetController<GetCustomerRequest, GetCustomersRequest>
+    public class CustomerController : BaseController, ICustomerController
     {
         private readonly ICustomerService _customerService;
 

@@ -1,13 +1,15 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using ZarvanOrder.Model.Dtos.Requests.Users;
 
 namespace ZarvanOrder.Interfaces.Controllers
 {
-    public interface IUserController
+    public interface IUserController : IController<AddUserRequest, EditUserRequest, DeleteUserRequest>,
+                                       IGetController<GetUserRequest, GetUsersRequest>
     {
-        Task GetPhoneNumberVerification(Model.Dtos.Requests.Users.GetUserRequest request);
-        Task GetEmailVerification(Model.Dtos.Requests.Users.GetUserRequest request);
-        Task<IActionResult> SigninAsync(Model.Dtos.Requests.Users.LoginRequst requst);
+        Task GetPhoneNumberVerification(GetUserRequest request);
+        Task GetEmailVerification(GetUserRequest request);
+        Task<IActionResult> SigninAsync(LoginRequst requst);
         Task SignoutAsync();
     }
 }

@@ -13,9 +13,7 @@ using ZarvanOrder.Model.Dtos.Responses.Users;
 
 namespace ZarvanOrder.Controllers
 {
-    public class UserController : BaseController, IController<AddUserRequest, EditUserRequest, DeleteUserRequest>,
-                                                  IGetController<GetUserRequest, GetUsersRequest>,
-                                                  IUserController
+    public class UserController : BaseController, IUserController
     {
         private readonly IUserService _userService;
 
