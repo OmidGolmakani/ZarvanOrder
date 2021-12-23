@@ -30,7 +30,7 @@ namespace ZarvanOrder.Services.Data
         public async Task<RegionResponse> Add(AddRegionRequest request)
         {
             var entity = _mapper.Map<AddRegionRequest, Region>(request);
-            RegionValidator validator = new(this);
+            RegionValidation validator = new(this);
             await validator.ValidateAndThrowAsync(entity);
             var result = _mapper.Map<RegionResponse>(_repository.Add(entity));
             return result;
@@ -85,7 +85,7 @@ namespace ZarvanOrder.Services.Data
             if (entity == null)
                 throw new MyException(System.Net.HttpStatusCode.NotFound, Model.Messages.General.RegionNotFound);
             _mapper.Map<EditRegionRequest, Region>(request, entity);
-            RegionValidator validator = new(this);
+            RegionValidation validator = new(this);
             await validator.ValidateAndThrowAsync(entity);
             var result = _mapper.Map<RegionResponse>(_repository.Update(entity));
             return result;
