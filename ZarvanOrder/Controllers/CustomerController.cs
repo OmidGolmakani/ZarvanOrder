@@ -1,21 +1,18 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using ZarvanOrder.Interfaces.Controllers;
+using ZarvanOrder.Interfaces.DataServices;
 using ZarvanOrder.Model.Dtos.Requests.Customers;
-using ZarvanOrder.Services.Data;
 
 namespace ZarvanOrder.Controllers
 {
     public class CustomerController : BaseController, IController<AddCustomerRequest, EditCustomerRequest, DeleteCustomerRequest>,
                                                       IGetController<GetCustomerRequest, GetCustomersRequest>
     {
-        private readonly CustomerService _customerService;
+        private readonly ICustomerService _customerService;
 
-        public CustomerController(CustomerService customerService)
+        public CustomerController(ICustomerService customerService)
         {
             this._customerService = customerService;
         }
