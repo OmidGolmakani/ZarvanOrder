@@ -9,11 +9,11 @@ using ZarvanOrder.Interfaces.DataServices;
 
 namespace ZarvanOrder.Model.Validation
 {
-    public class RegionValidator : AbstractValidator<Entites.Region>
+    public class RegionValidation : AbstractValidator<Entites.Region>
     {
         private readonly IRegionService _service;
 
-        public RegionValidator(IRegionService service)
+        public RegionValidation(IRegionService service)
         {
             this._service = service;
             this.RuleFor(p => p.RegionName).NotNull().WithMessage("نام منطقه اجباری می باشد");
@@ -27,7 +27,7 @@ namespace ZarvanOrder.Model.Validation
             var result = await _service.GetsAsync(new Dtos.Requests.Regions.GetRegionsRequest()
             {
                 RegionCode = request.RegionCode,
-                Level = request.Level,
+                Level = (Enums.Region.Level)request.Level,
                 RegionFatherId = request.RegionFatherId
             });
             return result.Items.Count(p => p.Id != request.Id) != 0 ? false : true;
