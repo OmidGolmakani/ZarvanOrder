@@ -24,12 +24,14 @@ namespace ZarvanOrder.Data.DbContext
         public DbSet<RolePermission> RolePermissions{ get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Region> Regions { get; set; }
+        public DbSet<MarketerAccessRegion> MarketerAccessRegions { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new SchemaDefinitions.RolePermission());
             modelBuilder.ApplyConfiguration(new SchemaDefinitions.User());
             modelBuilder.ApplyConfiguration(new SchemaDefinitions.Customer());
             modelBuilder.ApplyConfiguration(new SchemaDefinitions.Region());
+            modelBuilder.ApplyConfiguration(new SchemaDefinitions.MarketerAccessRegion());
 
             base.OnModelCreating(modelBuilder);
             #region Seed
