@@ -1,23 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "E:\\Source\\ZarvanOrder\\ZarvanOrderUnitTest\\ZarvanOrderUnitTest.csproj": {}
+    "D:\\Source\\Web\\ZarvanOrder\\ZarvanOrderUnitTest\\ZarvanOrderUnitTest.csproj": {}
   },
   "projects": {
-    "E:\\Source\\ZarvanOrder\\ZarvanOrderUnitTest\\ZarvanOrderUnitTest.csproj": {
+    "D:\\Source\\Web\\ZarvanOrder\\ZarvanOrderUnitTest\\ZarvanOrderUnitTest.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Source\\ZarvanOrder\\ZarvanOrderUnitTest\\ZarvanOrderUnitTest.csproj",
+        "projectUniqueName": "D:\\Source\\Web\\ZarvanOrder\\ZarvanOrderUnitTest\\ZarvanOrderUnitTest.csproj",
         "projectName": "ZarvanOrderUnitTest",
-        "projectPath": "E:\\Source\\ZarvanOrder\\ZarvanOrderUnitTest\\ZarvanOrderUnitTest.csproj",
-        "packagesPath": "C:\\Users\\Golmakani\\.nuget\\packages\\",
-        "outputPath": "E:\\Source\\ZarvanOrder\\ZarvanOrderUnitTest\\obj\\",
+        "projectPath": "D:\\Source\\Web\\ZarvanOrder\\ZarvanOrderUnitTest\\ZarvanOrderUnitTest.csproj",
+        "packagesPath": "C:\\Users\\Omid\\.nuget\\packages\\",
+        "outputPath": "D:\\Source\\Web\\ZarvanOrder\\ZarvanOrderUnitTest\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\Golmakani\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "D:\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -32,8 +33,8 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "E:\\Source\\ZarvanOrder\\ZarvanOrder\\ZarvanOrder.csproj": {
-                "projectPath": "E:\\Source\\ZarvanOrder\\ZarvanOrder\\ZarvanOrder.csproj"
+              "D:\\Source\\Web\\ZarvanOrder\\ZarvanOrder\\ZarvanOrder.csproj": {
+                "projectPath": "D:\\Source\\Web\\ZarvanOrder\\ZarvanOrder\\ZarvanOrder.csproj"
               }
             }
           }
@@ -96,24 +97,25 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.403\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.404\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "E:\\Source\\ZarvanOrder\\ZarvanOrder\\ZarvanOrder.csproj": {
+    "D:\\Source\\Web\\ZarvanOrder\\ZarvanOrder\\ZarvanOrder.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Source\\ZarvanOrder\\ZarvanOrder\\ZarvanOrder.csproj",
+        "projectUniqueName": "D:\\Source\\Web\\ZarvanOrder\\ZarvanOrder\\ZarvanOrder.csproj",
         "projectName": "ZarvanOrder",
-        "projectPath": "E:\\Source\\ZarvanOrder\\ZarvanOrder\\ZarvanOrder.csproj",
-        "packagesPath": "C:\\Users\\Golmakani\\.nuget\\packages\\",
-        "outputPath": "E:\\Source\\ZarvanOrder\\ZarvanOrder\\obj\\",
+        "projectPath": "D:\\Source\\Web\\ZarvanOrder\\ZarvanOrder\\ZarvanOrder.csproj",
+        "packagesPath": "C:\\Users\\Omid\\.nuget\\packages\\",
+        "outputPath": "D:\\Source\\Web\\ZarvanOrder\\ZarvanOrder\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\Golmakani\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "D:\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -243,7 +245,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.403\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.404\\RuntimeIdentifierGraph.json"
         }
       }
     }
