@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ZarvanOrder.Model.Dtos.Responses.Customers
+namespace ZarvanOrder.Model.Dtos.Responses.MarketerAccessRegions
 {
     public class MarketerAccessRegionResponse : Bases.BaseResponse<long>
     {
