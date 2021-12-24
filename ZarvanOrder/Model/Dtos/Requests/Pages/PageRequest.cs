@@ -9,7 +9,7 @@ namespace ZarvanOrder.Model.Dtos.Requests.Pages
     public class PageRequest : Bases.GetsRequest
     {
         int _pageSize = 0;
-        public int PageSize
+        public virtual int PageSize
         {
             set
             {
@@ -23,6 +23,6 @@ namespace ZarvanOrder.Model.Dtos.Requests.Pages
 
             }
         }
-        public int PageIndex { get; set; } = 0;
+        public virtual int PageIndex { get; set; } = 0;
     }
 }
