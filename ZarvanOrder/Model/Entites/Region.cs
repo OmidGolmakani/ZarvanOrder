@@ -16,5 +16,6 @@ namespace ZarvanOrder.Model.Entites
         public bool Active { get; set; }
         public Region FatherRegion { get; set; }
         public ICollection<Region> ChildRegion { get; set; }
+        public ICollection<MarketerAccessRegion> MarketerAccessRegions { get; set; }
     }
 }

@@ -38,5 +38,6 @@ namespace ZarvanOrder.Model.Entites
         public DateTime? DeletedDate { get; set; }
         public string DeletedBy { get; set; }
         public ICollection<Customer> Customers { get; set; }
+        public ICollection<MarketerAccessRegion> MarketerAccessRegions { get; set; }
     }
 }
