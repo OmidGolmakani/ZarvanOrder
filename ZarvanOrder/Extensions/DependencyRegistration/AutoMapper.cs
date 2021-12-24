@@ -16,6 +16,8 @@ namespace ZarvanOrder.Extensions.DependencyRegistration
             {
                 cfg.AddProfile(new UserProfile());
                 cfg.AddProfile(new CustomerProfile());
+                cfg.AddProfile(new RegionProfile());
+                cfg.AddProfile(new MarketerAccessRegionProfile());
             });
             var mapper = Config.CreateMapper();
             services.AddSingleton(mapper);
