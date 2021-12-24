@@ -7,6 +7,7 @@ namespace ZarvanOrder.Data.SchemaDefinitions
     {
         public override void Configure(EntityTypeBuilder<Model.Entites.MarketerAccessRegion> builder)
         {
+            builder.ToTable("MarketerAccessRegion");
             builder.Property(p => p.UserId).IsRequired();
             builder.Property(p => p.RegionId).IsRequired();
             builder.HasOne(p => p.Marketer)
