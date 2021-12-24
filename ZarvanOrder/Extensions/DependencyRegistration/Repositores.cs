@@ -17,6 +17,7 @@ namespace ZarvanOrder.Extensions.DependencyRegistration
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ICustomerRepository, CustomerRepository>();
             services.AddScoped<IRegionRepository, RegionRepository>();
+            services.AddScoped<IMarketerAccessRegionRepository, MarketerAccessRegionRepository>();
             return services;
         }
     }
