@@ -16,5 +16,6 @@ namespace ZarvanOrder.Model.Messages
         internal const string Unauthorized = "توکن ارسال نشده است";
         internal const string CustomerNotFound = "مشتری مورد نظر یافت نشد";
         internal const string RegionNotFound = "منطقه مورد نظر یافت نشد";
+        internal const string GoodsGroupNotFound = "گروه کالا مورد نظر یافت نشد";
     }
 }
