@@ -9,7 +9,7 @@ using ZarvanOrder.Services.Data;
 
 namespace ZarvanOrder.Extensions.DependencyRegistration
 {
-    internal static class Servises
+    internal static class Services
     {
         internal static IServiceCollection AddServises(this IServiceCollection services, IConfiguration configuration)
         {
